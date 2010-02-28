@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E005CE3E113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */; };
+		E005CE3F113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */; };
+		E005CE40113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */; };
 		E020066A113B06090022EA3E /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
 		E020066B113B06090022EA3E /* LCLSystemLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E02E6F72113B009D00735C3A /* LCLSystemLog.m */; };
 		E03288FE113B0682005C878D /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
@@ -42,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsAllocationTests.m; path = "SystemLog-Tests/SystemLogTestsAllocationTests.m"; sourceTree = "<group>"; };
 		E0200671113B06090022EA3E /* SystemLog-Tests-MacOSX-10.5.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-MacOSX-10.5.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E02E6F70113B009D00735C3A /* lcl_config_logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_logger.h; path = ../lcl_config_logger.h; sourceTree = SOURCE_ROOT; };
 		E02E6F71113B009D00735C3A /* LCLSystemLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLog.h; path = ../LCLSystemLog.h; sourceTree = SOURCE_ROOT; };
@@ -129,6 +133,7 @@
 				E0E6ACFB113B04D200DD0374 /* lcl_config_extensions.h */,
 				E0E6ACE9113B049900DD0374 /* SystemLogTests.pch */,
 				E03B9CD6113B035600628BF9 /* SystemLog-Tests-Info.plist */,
+				E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */,
 			);
 			name = "SystemLog-Tests";
 			sourceTree = "<group>";
@@ -325,6 +330,7 @@
 			files = (
 				E020066A113B06090022EA3E /* lcl.m in Sources */,
 				E020066B113B06090022EA3E /* LCLSystemLog.m in Sources */,
+				E005CE3E113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,6 +340,7 @@
 			files = (
 				E03288FE113B0682005C878D /* lcl.m in Sources */,
 				E03288FF113B0682005C878D /* LCLSystemLog.m in Sources */,
+				E005CE40113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -352,6 +359,7 @@
 			files = (
 				E0DB2F57113B079C003E06ED /* lcl.m in Sources */,
 				E0DB2F58113B079C003E06ED /* LCLSystemLog.m in Sources */,
+				E005CE3F113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
