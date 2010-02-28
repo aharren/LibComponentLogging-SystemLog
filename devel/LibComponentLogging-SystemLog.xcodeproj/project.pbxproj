@@ -10,12 +10,15 @@
 		E02E6F70113B009D00735C3A /* lcl_config_logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_logger.h; path = ../lcl_config_logger.h; sourceTree = SOURCE_ROOT; };
 		E02E6F71113B009D00735C3A /* LCLSystemLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLog.h; path = ../LCLSystemLog.h; sourceTree = SOURCE_ROOT; };
 		E02E6F72113B009D00735C3A /* LCLSystemLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LCLSystemLog.m; path = ../LCLSystemLog.m; sourceTree = SOURCE_ROOT; };
+		E03B9CB8113B01E300628BF9 /* lcl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl.h; path = Core/lcl.h; sourceTree = "<group>"; };
+		E03B9CB9113B01E300628BF9 /* lcl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = lcl.m; path = Core/lcl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		29B97314FDCFA39411CA2CEA /* SystemLog */ = {
 			isa = PBXGroup;
 			children = (
+				E03B9CB7113B01D500628BF9 /* Core */,
 				E02E6F6F113B009100735C3A /* SystemLog */,
 			);
 			name = SystemLog;
@@ -29,6 +32,15 @@
 				E02E6F70113B009D00735C3A /* lcl_config_logger.h */,
 			);
 			name = SystemLog;
+			sourceTree = "<group>";
+		};
+		E03B9CB7113B01D500628BF9 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E03B9CB8113B01E300628BF9 /* lcl.h */,
+				E03B9CB9113B01E300628BF9 /* lcl.m */,
+			);
+			name = Core;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
