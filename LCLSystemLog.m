@@ -33,8 +33,6 @@
 #include <mach/mach_init.h>
 
 
-@interface LCLSystemLog (Internals)
-
 // A lock which is held when the asl client connection is used.
 static NSRecursiveLock *_LCLSystemLog_aslClientLock = nil;
 
@@ -51,8 +49,6 @@ static const char * const _LCLSystemLog_aslLogLevel[] = {
     ASL_STRING_DEBUG,   // Debug
     ASL_STRING_DEBUG    // Trace
 };
-
-@end
 
 
 @implementation LCLSystemLog
