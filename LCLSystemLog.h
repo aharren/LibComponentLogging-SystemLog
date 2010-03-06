@@ -96,7 +96,19 @@
 //
 
 
-// Writes the given log message to the log file (format and ... var args).
+// Writes the given log message to the system log.
++ (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                  message:(NSString *)message;
+
+// Writes the given log message to the system log (format and va_list var args).
++ (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                   format:(NSString *)format args:(va_list)args;
+
+// Writes the given log message to the system log (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
                      path:(const char *)path line:(uint32_t)line
                  function:(const char *)function
@@ -108,7 +120,19 @@
 //
 
 
-// Writes the given log message to the log file (format and ... var args).
+// Writes the given log message to the system log.
++ (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                  message:(NSString *)message;
+
+// Writes the given log message to the system log (format and va_list var args).
++ (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                   format:(NSString *)format args:(va_list)args;
+
+// Writes the given log message to the system log (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
                      path:(const char *)path line:(uint32_t)line
                  function:(const char *)function

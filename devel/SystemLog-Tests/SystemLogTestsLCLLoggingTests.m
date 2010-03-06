@@ -43,6 +43,7 @@
     lcl_configure_by_name("*", lcl_vOff);
     lcl_configure_by_component(lcl_cMain, lcl_vDebug);
     lcl_configure_by_component(lcl_cMainComponent1, lcl_vDebug);
+    lcl_configure_by_component(lcl_cMainComponent2, lcl_vDebug);
 }
 
 - (void)testLoggingWithVarArgsLogMethod {
@@ -77,6 +78,55 @@
     STAssertEqualObjects([message2 valueForKey:@"Message"], @"format 2 message", nil);
 }
 
+- (void)loggingWithVaListVarArgsLogMethodHelper:(NSString *)format, ... {
+    va_list args;
+    va_start(args, format);
+    [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMainComponent1] lclLevel:lcl_vInfo path:"file2" line:200 function:"function" format:format args:args];
+    va_end(args);
+}
+
+- (void)testLoggingWithVaListVarArgsLogMethod {
+    NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
+    
+    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    
+    [self loggingWithVaListVarArgsLogMethodHelper:@"message %d %@ %d", 2, @"abc", 3];
+    
+    ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
+    STAssertEquals([messages count], (NSUInteger)1, nil);
+    
+    ASLMessage *message1 = [messages messageAtIndex:0];
+    STAssertEqualObjects([message1 valueForKey:@"Facility"], @"main.component1", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Thread"], thread, nil);
+    STAssertEqualObjects([message1 valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
+    STAssertEqualObjects([message1 valueForKey:@"File"], @"file2", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Line"], @"200", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Function"], @"function", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Message"], @"message 2 abc 3", nil);
+}
+
+- (void)testLoggingWithMessage {
+    NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
+    
+    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    
+    [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMainComponent2] lclLevel:lcl_vError path:"file3" line:300 function:"function" message:@"message %d %@"];
+    
+    ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
+    STAssertEquals([messages count], (NSUInteger)1, nil);
+    
+    ASLMessage *message1 = [messages messageAtIndex:0];
+    STAssertEqualObjects([message1 valueForKey:@"Facility"], @"main.component2", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Thread"], thread, nil);
+    STAssertEqualObjects([message1 valueForKey:@"Level"], @"3", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Level0"], @"E", nil);
+    STAssertEqualObjects([message1 valueForKey:@"File"], @"file3", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Line"], @"300", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Function"], @"function", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Message"], @"message %d %@", nil);
+}
+
 - (void)testLoggingWithLogMacro {
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
@@ -93,7 +143,7 @@
     STAssertEqualObjects([message1 valueForKey:@"Level"], @"5", nil);
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"SystemLogTestsLCLLoggingTests.m", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Line"], @"85", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Line"], @"135", nil);
     STAssertEqualObjects([message1 valueForKey:@"Function"], @"-[SystemLogTestsLCLLoggingTests testLoggingWithLogMacro]", nil);
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"message with macro, 1", nil);
 }

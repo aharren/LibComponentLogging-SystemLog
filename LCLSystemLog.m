@@ -75,14 +75,14 @@ static const char * const _LCLSystemLog_level0ASL[] = {
 };
 
 // Log levels known by asl, indexed by LCL log level.
-static const uint32_t _LCLSystemLog_aslLogLevelLCL[] = {
-    ASL_LEVEL_DEBUG,    // Off
-    ASL_LEVEL_CRIT,     // Critical
-    ASL_LEVEL_ERR,      // Error
-    ASL_LEVEL_WARNING,  // Warning
-    ASL_LEVEL_NOTICE,   // Info
-    ASL_LEVEL_DEBUG,    // Debug
-    ASL_LEVEL_DEBUG     // Trace
+static const char * const _LCLSystemLog_aslLogLevelLCL[] = {
+    ASL_STRING_DEBUG,   // Off
+    ASL_STRING_CRIT,    // Critical
+    ASL_STRING_ERR,     // Error
+    ASL_STRING_WARNING, // Warning
+    ASL_STRING_NOTICE,  // Info
+    ASL_STRING_DEBUG,   // Debug
+    ASL_STRING_DEBUG    // Trace
 };
 
 // Level0 headers, indexed by LCL log level.
@@ -140,9 +140,9 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 //
 
 
-// Writes the given log message to the log file (internal).
+// Writes the given log message to the system log (internal).
 static void _LCLSystemLog_log(const char *identifier_c,
-                              uint32_t level, const char *level0_c,
+                              uint32_t level, BOOL level_is_asl_level,
                               const char *path_c, uint32_t line,
                               const char *function_c,
                               const char *message_c) {
@@ -155,26 +155,29 @@ static void _LCLSystemLog_log(const char *identifier_c,
     snprintf(line_c, sizeof(line_c), "%u", line);
     line_c[sizeof(line_c) - 1] = '\0';
     
-    // get the ASL log level string, default is DEBUG
+    // get the ASL log level string, default is DEBUG, and the level0 value
     const char *level_asl_c = ASL_STRING_DEBUG;
-    if (level < sizeof(_LCLSystemLog_aslLogLevelASL)/sizeof(const char *)) {
-        // a known ASL level
-        level_asl_c = _LCLSystemLog_aslLogLevelASL[level];
-    }
-    
-    // get the level0 header
-    char level0_ca[11];
-    if (level0_c == NULL) {
-        if (level < sizeof(_LCLSystemLog_level0ASL)/sizeof(const char *)) {
-            // a known level
+    const char *level0_c = NULL;
+    if (level_is_asl_level) {
+        if (level < sizeof(_LCLSystemLog_aslLogLevelASL)/sizeof(const char *)) {
+            // a known ASL level
+            level_asl_c = _LCLSystemLog_aslLogLevelASL[level];
             level0_c = _LCLSystemLog_level0ASL[level];
-        } else {
-            // unknown level, use the level number
-            snprintf(level0_ca, sizeof(level0_ca), "%u", level);
-            level0_c = level0_ca;
+        }
+    } else {
+        // map the LCL log level to a suitable ASL log level, default is DEBUG
+        if (level < sizeof(_LCLSystemLog_aslLogLevelLCL)/sizeof(const char *)) {
+            // a known LCL level
+            level_asl_c = _LCLSystemLog_aslLogLevelLCL[level];
+            level0_c = _LCLSystemLog_level0LCL[level];
         }
     }
-    
+    char level0_ca[11];
+    if (level0_c == NULL) {
+        // unknown level, use the level number as level0
+        snprintf(level0_ca, sizeof(level0_ca), "%u", level);
+        level0_c = level0_ca;
+    }
     
     // get thread id
     char tid_c[10];
@@ -202,7 +205,42 @@ static void _LCLSystemLog_log(const char *identifier_c,
     asl_free(message_asl);
 }
 
-// Writes the given log message to the log file (format and ... var args).
+// Writes the given log message to the system log.
++ (void)logWithIdentifier:(const char *)identifier_c level:(uint32_t)level
+                     path:(const char *)path_c line:(uint32_t)line
+                 function:(const char *)function_c
+                  message:(NSString *)message {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    // create log message
+    const char *message_c = [message UTF8String];
+    
+    // write log message
+    _LCLSystemLog_log(identifier_c, level, YES, path_c, line, function_c, message_c);
+    
+    // release local objects
+    [pool release];
+}
+
+// Writes the given log message to the system log (format and va_list var args).
++ (void)logWithIdentifier:(const char *)identifier_c level:(uint32_t)level
+                     path:(const char *)path_c line:(uint32_t)line
+                 function:(const char *)function_c
+                   format:(NSString *)format args:(va_list)args {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    // create log message
+    NSString *message = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
+    const char *message_c = [message UTF8String];
+    
+    // write log message
+    _LCLSystemLog_log(identifier_c, level, YES, path_c, line, function_c, message_c);
+    
+    // release local objects
+    [pool release];
+}
+
+// Writes the given log message to the system log (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier_c level:(uint32_t)level
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
@@ -217,7 +255,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     const char *message_c = [message UTF8String];
     
     // write log message
-    _LCLSystemLog_log(identifier_c, level, NULL, path_c, line, function_c, message_c);
+    _LCLSystemLog_log(identifier_c, level, YES, path_c, line, function_c, message_c);
     
     // release local objects
     [pool release];
@@ -229,26 +267,47 @@ static void _LCLSystemLog_log(const char *identifier_c,
 //
 
 
-// Writes the given log message to the log file (format and ... var args).
+// Writes the given log message to the system log.
++ (void)logWithIdentifier:(const char *)identifier_c lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path_c line:(uint32_t)line
+                 function:(const char *)function_c
+                  message:(NSString *)message {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    // create log message
+    const char *message_c = [message UTF8String];
+    
+    // write log message
+    _LCLSystemLog_log(identifier_c, lclLevel, NO, path_c, line, function_c, message_c);
+    
+    // release local objects
+    [pool release];
+}
+
+// Writes the given log message to the system log (format and va_list var args).
++ (void)logWithIdentifier:(const char *)identifier_c lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path_c line:(uint32_t)line
+                 function:(const char *)function_c
+                   format:(NSString *)format args:(va_list)args {
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    
+    // create log message
+    NSString *message = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
+    const char *message_c = [message UTF8String];
+    
+    // write log message
+    _LCLSystemLog_log(identifier_c, lclLevel, NO, path_c, line, function_c, message_c);
+    
+    // release local objects
+    [pool release];
+}
+
+// Writes the given log message to the system log (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier_c lclLevel:(uint32_t)lclLevel
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
                    format:(NSString *)format, ... {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-    
-    // map the LCL log level to a suitable ASL log level, default is DEBUG
-    int level = ASL_LEVEL_DEBUG;
-    char level0_ca[11];
-    const char *level0_c;
-    if (lclLevel < sizeof(_LCLSystemLog_aslLogLevelLCL)/sizeof(int32_t)) {
-        // a known LCL level
-        level = _LCLSystemLog_aslLogLevelLCL[lclLevel];
-        level0_c = _LCLSystemLog_level0LCL[lclLevel];
-    } else {
-        // unknown level, use the level number
-        snprintf(level0_ca, sizeof(level0_ca), "%u", lclLevel);
-        level0_c = level0_ca;
-    }
     
     // create log message
     va_list args;
@@ -258,7 +317,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     const char *message_c = [message UTF8String];
     
     // write log message
-    _LCLSystemLog_log(identifier_c, level, level0_c, path_c, line, function_c, message_c);
+    _LCLSystemLog_log(identifier_c, lclLevel, NO, path_c, line, function_c, message_c);
     
     // release local objects
     [pool release];
