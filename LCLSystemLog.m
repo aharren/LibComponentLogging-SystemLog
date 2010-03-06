@@ -35,7 +35,7 @@
 
 
 #ifndef _LCLSystemLog_MirrorMessagesToStdErr
-#error  '_LCLSystemLog_MirrorMessagesToStdErr' must be defined in 'lcl_config_logger.h'
+#error  '_LCLSystemLog_MirrorMessagesToStdErr' must be defined in LCLSystemLogConfig.h
 #endif
 
 

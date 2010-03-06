@@ -28,7 +28,7 @@
 //
 
 
-// Tell LCLSystemLog whether it should mirror the log messages to stderr
+// Tell LCLSystemLog whether it should mirror the log messages to stderr.
 #define _LCLSystemLog_MirrorMessagesToStdErr                                   \
     NO
 
