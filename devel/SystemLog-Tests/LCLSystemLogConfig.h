@@ -1,6 +1,6 @@
 //
 //
-// lcl_config_logger.h
+// LCLSystemLogConfig.h
 //
 //
 // Copyright (c) 2008-2010 Arne Harren <ah@0xc0.de>
@@ -24,9 +24,7 @@
 // THE SOFTWARE.
 
 
-// Use LCLSystemLog as the LibComponentLogging logging back-end.
-#import "LCLSystemLog.h"
-
-// The detailed configuration of the LCLSystemLog class is stored in the
-// LCLSystemLogConfig.h file which gets imported by LCLSystemLog.h.
+// Tell LCLSystemLog whether it should mirror the log messages to stderr
+#define _LCLSystemLog_MirrorMessagesToStdErr                                   \
+    NO
 

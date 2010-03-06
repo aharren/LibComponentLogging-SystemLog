@@ -75,6 +75,10 @@
 //
 
 
+#import <Foundation/Foundation.h>
+#import "LCLSystemLogConfig.h"
+
+
 //
 // LCLSystemLog class.
 //

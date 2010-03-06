@@ -64,6 +64,8 @@
 		E03B9CB9113B01E300628BF9 /* lcl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = lcl.m; path = Core/lcl.m; sourceTree = "<group>"; };
 		E03B9CC8113B02F200628BF9 /* SystemLog-Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E03B9CD6113B035600628BF9 /* SystemLog-Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SystemLog-Tests-Info.plist"; path = "SystemLog-Tests/SystemLog-Tests-Info.plist"; sourceTree = "<group>"; };
+		E07CDEAB1142701300EB3CE2 /* LCLSystemLogConfig.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLogConfig.template.h; path = ../LCLSystemLogConfig.template.h; sourceTree = SOURCE_ROOT; };
+		E07CDEBC1142732500EB3CE2 /* LCLSystemLogConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLogConfig.h; path = "SystemLog-Tests/LCLSystemLogConfig.h"; sourceTree = "<group>"; };
 		E0DB2F5E113B079C003E06ED /* SystemLog-Tests-iPhoneOS-3.0-Device.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-iPhoneOS-3.0-Device.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E6ACE9113B049900DD0374 /* SystemLogTests.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemLogTests.pch; path = "SystemLog-Tests/SystemLogTests.pch"; sourceTree = "<group>"; };
 		E0E6ACFA113B04D200DD0374 /* lcl_config_components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_components.h; path = "SystemLog-Tests/lcl_config_components.h"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				E02E6F71113B009D00735C3A /* LCLSystemLog.h */,
 				E02E6F72113B009D00735C3A /* LCLSystemLog.m */,
+				E07CDEAB1142701300EB3CE2 /* LCLSystemLogConfig.template.h */,
 				E02E6F70113B009D00735C3A /* lcl_config_logger.h */,
 			);
 			name = SystemLog;
@@ -140,6 +143,7 @@
 			children = (
 				E0E6ACFA113B04D200DD0374 /* lcl_config_components.h */,
 				E0E6ACFB113B04D200DD0374 /* lcl_config_extensions.h */,
+				E07CDEBC1142732500EB3CE2 /* LCLSystemLogConfig.h */,
 				E0E6ACE9113B049900DD0374 /* SystemLogTests.pch */,
 				E03B9CD6113B035600628BF9 /* SystemLog-Tests-Info.plist */,
 				E005CE55113B095B00BEBEBE /* ASLDataStore.h */,
