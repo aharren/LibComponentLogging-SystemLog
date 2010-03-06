@@ -30,7 +30,7 @@
 
 
 @interface SystemLogTestsLCLLoggingTests : SenTestCase {
-
+    
 }
 
 @end
@@ -50,8 +50,8 @@
     
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     
-    [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMain] lclLevel:lcl_vInfo path:"path/file1a" line:101 format:@"format %d %@", 1, @"message"];
-    [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMain] lclLevel:lcl_vError path:"path/file1b" line:102 format:@"format %d %@", 2, @"message"];
+    [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMain] lclLevel:lcl_vInfo path:"path/file1a" line:101 function:"f1" format:@"format %d %@", 1, @"message"];
+    [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMain] lclLevel:lcl_vError path:"path/file1b" line:102 function:"f2" format:@"format %d %@", 2, @"message"];
     
     ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
     STAssertEquals([messages count], (NSUInteger)2, nil);
@@ -63,6 +63,7 @@
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"file1a", nil);
     STAssertEqualObjects([message1 valueForKey:@"Line"], @"101", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Function"], @"f1", nil);
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"format 1 message", nil);
     
     ASLMessage *message2 = [messages messageAtIndex:1];
@@ -72,6 +73,7 @@
     STAssertEqualObjects([message2 valueForKey:@"Level0"], @"E", nil);
     STAssertEqualObjects([message2 valueForKey:@"File"], @"file1b", nil);
     STAssertEqualObjects([message2 valueForKey:@"Line"], @"102", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Function"], @"f2", nil);
     STAssertEqualObjects([message2 valueForKey:@"Message"], @"format 2 message", nil);
 }
 
@@ -91,7 +93,8 @@
     STAssertEqualObjects([message1 valueForKey:@"Level"], @"5", nil);
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"SystemLogTestsLCLLoggingTests.m", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Line"], @"83", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Line"], @"85", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Function"], @"-[SystemLogTestsLCLLoggingTests testLoggingWithLogMacro]", nil);
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"message with macro, 1", nil);
 }
 

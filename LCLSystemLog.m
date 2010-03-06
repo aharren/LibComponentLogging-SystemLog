@@ -144,6 +144,7 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 static void _LCLSystemLog_log(const char *identifier_c,
                               uint32_t level, const char *level0_c,
                               const char *path_c, uint32_t line,
+                              const char *function_c,
                               const char *message_c) {
     // get file name from path
     const char *file_c = (path_c != NULL) ? strrchr(path_c, '/') : NULL;
@@ -188,6 +189,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     asl_set(message_asl, "Thread", tid_c);
     asl_set(message_asl, "File", file_c);
     asl_set(message_asl, "Line", line_c);
+    asl_set(message_asl, "Function", function_c);
     
     // send the system log message
     [_LCLSystemLog_aslClientLock lock];
@@ -203,6 +205,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
 // Writes the given log message to the log file (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier_c level:(uint32_t)level
                      path:(const char *)path_c line:(uint32_t)line
+                 function:(const char *)function_c
                    format:(NSString *)format, ... {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -214,7 +217,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     const char *message_c = [message UTF8String];
     
     // write log message
-    _LCLSystemLog_log(identifier_c, level, NULL, path_c, line, message_c);
+    _LCLSystemLog_log(identifier_c, level, NULL, path_c, line, function_c, message_c);
     
     // release local objects
     [pool release];
@@ -229,6 +232,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
 // Writes the given log message to the log file (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier_c lclLevel:(uint32_t)lclLevel
                      path:(const char *)path_c line:(uint32_t)line
+                 function:(const char *)function_c
                    format:(NSString *)format, ... {
     NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
     
@@ -254,7 +258,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     const char *message_c = [message UTF8String];
     
     // write log message
-    _LCLSystemLog_log(identifier_c, level, level0_c, path_c, line, message_c);
+    _LCLSystemLog_log(identifier_c, level, level0_c, path_c, line, function_c, message_c);
     
     // release local objects
     [pool release];

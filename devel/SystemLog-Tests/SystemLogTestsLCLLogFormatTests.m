@@ -44,18 +44,18 @@
 - (void)testLogFormatLogLevels {
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     
-    [LCLSystemLog logWithIdentifier:"i1" lclLevel:0 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"i2" lclLevel:1 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"i3" lclLevel:2 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"i4" lclLevel:3 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"i5" lclLevel:4 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"i6" lclLevel:5 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"i7" lclLevel:6 path:"path/file" line:0 format:@"message"];    
-    [LCLSystemLog logWithIdentifier:"i8" lclLevel:7 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"i9" lclLevel:8 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"ia" lclLevel:9 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"ib" lclLevel:18 path:"path/file" line:0 format:@"message"];
-    [LCLSystemLog logWithIdentifier:"ic" lclLevel:(uint32_t)-1 path:"path/file" line:0 format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i1" lclLevel:0 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i2" lclLevel:1 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i3" lclLevel:2 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i4" lclLevel:3 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i5" lclLevel:4 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i6" lclLevel:5 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i7" lclLevel:6 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i8" lclLevel:7 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i9" lclLevel:8 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"ia" lclLevel:9 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"ib" lclLevel:18 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"ic" lclLevel:(uint32_t)-1 path:"path/file" line:0 function:"f" format:@"message"];
     
     ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
     STAssertEquals([messages count], (NSUInteger)4, nil);

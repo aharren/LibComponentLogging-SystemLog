@@ -99,7 +99,8 @@
 // Writes the given log message to the log file (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
                      path:(const char *)path line:(uint32_t)line
-                   format:(NSString *)format, ... __attribute__((format(__NSString__, 5, 6)));
+                 function:(const char *)function
+                   format:(NSString *)format, ... __attribute__((format(__NSString__, 6, 7)));
 
 
 //
@@ -110,7 +111,8 @@
 // Writes the given log message to the log file (format and ... var args).
 + (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
                      path:(const char *)path line:(uint32_t)line
-                   format:(NSString *)format, ... __attribute__((format(__NSString__, 5, 6)));
+                 function:(const char *)function
+                   format:(NSString *)format, ... __attribute__((format(__NSString__, 6, 7)));
 
 @end
 
@@ -129,6 +131,7 @@
                            lclLevel:_level                                     \
                                path:__FILE__                                   \
                                line:__LINE__                                   \
+                           function:__FUNCTION__                               \
                              format:_format,                                   \
                                  ## __VA_ARGS__];                              \
     [_lcl_logger_pool release];                                                \
