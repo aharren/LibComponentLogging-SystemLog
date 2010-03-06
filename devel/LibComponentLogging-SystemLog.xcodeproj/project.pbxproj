@@ -20,6 +20,15 @@
 		E020066B113B06090022EA3E /* LCLSystemLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E02E6F72113B009D00735C3A /* LCLSystemLog.m */; };
 		E03288FE113B0682005C878D /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
 		E03288FF113B0682005C878D /* LCLSystemLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E02E6F72113B009D00735C3A /* LCLSystemLog.m */; };
+		E07CDF6411428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */; };
+		E07CDF6511428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */; };
+		E07CDF6611428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */; };
+		E07CDFB8114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */; };
+		E07CDFB9114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */; };
+		E07CDFBA114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */; };
+		E07CDFD01142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */; };
+		E07CDFD11142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */; };
+		E07CDFD21142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */; };
 		E0DB2F57113B079C003E06ED /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
 		E0DB2F58113B079C003E06ED /* LCLSystemLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E02E6F72113B009D00735C3A /* LCLSystemLog.m */; };
 		E0E6ACF1113B04A700DD0374 /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
@@ -66,6 +75,9 @@
 		E03B9CD6113B035600628BF9 /* SystemLog-Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SystemLog-Tests-Info.plist"; path = "SystemLog-Tests/SystemLog-Tests-Info.plist"; sourceTree = "<group>"; };
 		E07CDEAB1142701300EB3CE2 /* LCLSystemLogConfig.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLogConfig.template.h; path = ../LCLSystemLogConfig.template.h; sourceTree = SOURCE_ROOT; };
 		E07CDEBC1142732500EB3CE2 /* LCLSystemLogConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLogConfig.h; path = "SystemLog-Tests/LCLSystemLogConfig.h"; sourceTree = "<group>"; };
+		E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLCLLoggingTests.m; path = "SystemLog-Tests/SystemLogTestsLCLLoggingTests.m"; sourceTree = "<group>"; };
+		E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLCLLogFormatTests.m; path = "SystemLog-Tests/SystemLogTestsLCLLogFormatTests.m"; sourceTree = "<group>"; };
+		E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLogFormatTests.m; path = "SystemLog-Tests/SystemLogTestsLogFormatTests.m"; sourceTree = "<group>"; };
 		E0DB2F5E113B079C003E06ED /* SystemLog-Tests-iPhoneOS-3.0-Device.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-iPhoneOS-3.0-Device.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E6ACE9113B049900DD0374 /* SystemLogTests.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemLogTests.pch; path = "SystemLog-Tests/SystemLogTests.pch"; sourceTree = "<group>"; };
 		E0E6ACFA113B04D200DD0374 /* lcl_config_components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_components.h; path = "SystemLog-Tests/lcl_config_components.h"; sourceTree = "<group>"; };
@@ -150,6 +162,9 @@
 				E005CE56113B095B00BEBEBE /* ASLDataStore.m */,
 				E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */,
 				E005CE5A113B0A0800BEBEBE /* SystemLogTestsLoggingTests.m */,
+				E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */,
+				E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */,
+				E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */,
 			);
 			name = "SystemLog-Tests";
 			sourceTree = "<group>";
@@ -349,6 +364,9 @@
 				E005CE3E113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */,
 				E005CE57113B095B00BEBEBE /* ASLDataStore.m in Sources */,
 				E005CE5B113B0A0800BEBEBE /* SystemLogTestsLoggingTests.m in Sources */,
+				E07CDF6411428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m in Sources */,
+				E07CDFBA114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m in Sources */,
+				E07CDFD21142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +379,9 @@
 				E005CE40113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */,
 				E005CE59113B095B00BEBEBE /* ASLDataStore.m in Sources */,
 				E005CE5D113B0A0800BEBEBE /* SystemLogTestsLoggingTests.m in Sources */,
+				E07CDF6611428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m in Sources */,
+				E07CDFB8114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m in Sources */,
+				E07CDFD01142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,6 +403,9 @@
 				E005CE3F113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m in Sources */,
 				E005CE58113B095B00BEBEBE /* ASLDataStore.m in Sources */,
 				E005CE5C113B0A0800BEBEBE /* SystemLogTestsLoggingTests.m in Sources */,
+				E07CDF6511428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m in Sources */,
+				E07CDFB9114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m in Sources */,
+				E07CDFD11142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

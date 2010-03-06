@@ -79,19 +79,31 @@
 #import "LCLSystemLogConfig.h"
 
 
-//
-// LCLSystemLog class.
-//
-
-
 @interface LCLSystemLog : NSObject {
     
 }
 
-// Writes the given log message to the system log.
-+ (void)writeComponent:(_lcl_component_t)component level:(_lcl_level_t)level
-                  path:(const char *)path line:(uint32_t)line
-               message:(NSString *)message, ... __attribute__((format(__NSString__, 5, 6)));
+
+//
+// Logging methods.
+//
+
+
+// Writes the given log message to the log file (format and ... var args).
++ (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
+                     path:(const char *)path line:(uint32_t)line
+                   format:(NSString *)format, ... __attribute__((format(__NSString__, 5, 6)));
+
+
+//
+// Logging methods with log level mappings for LibComponentLogging.
+//
+
+
+// Writes the given log message to the log file (format and ... var args).
++ (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path line:(uint32_t)line
+                   format:(NSString *)format, ... __attribute__((format(__NSString__, 5, 6)));
 
 @end
 
@@ -101,15 +113,17 @@
 //
 
 
-// Definition of _lcl_logger.
-#define _lcl_logger(log_component, log_level, log_format, ...) {               \
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];                \
-    [LCLSystemLog writeComponent:log_component                                 \
-                           level:log_level                                     \
-                            path:__FILE__                                      \
-                            line:__LINE__                                      \
-                         message:log_format,                                   \
-                              ## __VA_ARGS__];                                 \
-    [pool release];                                                            \
+// Define the _lcl_logger macro which integrates LCLSystemLog as a logging
+// back-end for LibComponentLogging and pass the header of a log component as
+// the identifier to LCLSystemLog's log method.
+#define _lcl_logger(_component, _level, _format, ...) {                        \
+    NSAutoreleasePool *_lcl_logger_pool = [[NSAutoreleasePool alloc] init];    \
+    [LCLSystemLog logWithIdentifier:_lcl_component_header[_component]          \
+                           lclLevel:_level                                     \
+                               path:__FILE__                                   \
+                               line:__LINE__                                   \
+                             format:_format,                                   \
+                                 ## __VA_ARGS__];                              \
+    [_lcl_logger_pool release];                                                \
 }
 
