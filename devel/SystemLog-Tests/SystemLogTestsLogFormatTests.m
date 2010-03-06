@@ -41,18 +41,32 @@
 - (void)setUp {
 }
 
-- (void)testLogFormatWithNULLFileName {
+- (void)testLogFormatFileNames {
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     
-    [LCLSystemLog logWithIdentifier:"i1" level:3 path:NULL line:0 function:"f1" format:@"message, no file name"];
+    [LCLSystemLog logWithIdentifier:"i1" level:3 path:NULL line:0 function:"f1" format:@"message NULL"];
+    [LCLSystemLog logWithIdentifier:"i1" level:3 path:"file" line:1 function:"f1" format:@"message file"];
+    [LCLSystemLog logWithIdentifier:"i1" level:3 path:"path/file" line:2 function:"f1" format:@"message path/file"];
+    [LCLSystemLog logWithIdentifier:"i1" level:3 path:"path/path/file" line:3 function:"f1" format:@"message path/path/file"];
     
     ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
-    STAssertEquals([messages count], (NSUInteger)1, nil);
+    STAssertEquals([messages count], (NSUInteger)4, nil);
     
     ASLMessage *message1 = [messages messageAtIndex:0];
-    STAssertEqualObjects([message1 valueForKey:@"Facility"], @"i1", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Level"], @"3", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"(null)", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Message"], @"message NULL", nil);
+    
+    ASLMessage *message2 = [messages messageAtIndex:1];
+    STAssertEqualObjects([message2 valueForKey:@"File"], @"file", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Message"], @"message file", nil);
+    
+    ASLMessage *message3 = [messages messageAtIndex:2];
+    STAssertEqualObjects([message3 valueForKey:@"File"], @"file", nil);
+    STAssertEqualObjects([message3 valueForKey:@"Message"], @"message path/file", nil);
+    
+    ASLMessage *message4 = [messages messageAtIndex:3];
+    STAssertEqualObjects([message4 valueForKey:@"File"], @"file", nil);
+    STAssertEqualObjects([message4 valueForKey:@"Message"], @"message path/path/file", nil);
 }
 
 - (void)testLogFormatLogLevels {
