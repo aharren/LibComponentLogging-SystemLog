@@ -78,6 +78,7 @@
 		E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLCLLoggingTests.m; path = "SystemLog-Tests/SystemLogTestsLCLLoggingTests.m"; sourceTree = "<group>"; };
 		E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLCLLogFormatTests.m; path = "SystemLog-Tests/SystemLogTestsLCLLogFormatTests.m"; sourceTree = "<group>"; };
 		E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLogFormatTests.m; path = "SystemLog-Tests/SystemLogTestsLogFormatTests.m"; sourceTree = "<group>"; };
+		E07CE0851142CA4600EB3CE2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = README.md; path = ../README.md; sourceTree = SOURCE_ROOT; };
 		E0DB2F5E113B079C003E06ED /* SystemLog-Tests-iPhoneOS-3.0-Device.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-iPhoneOS-3.0-Device.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0E6ACE9113B049900DD0374 /* SystemLogTests.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemLogTests.pch; path = "SystemLog-Tests/SystemLogTests.pch"; sourceTree = "<group>"; };
 		E0E6ACFA113B04D200DD0374 /* lcl_config_components.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_components.h; path = "SystemLog-Tests/lcl_config_components.h"; sourceTree = "<group>"; };
@@ -119,6 +120,7 @@
 		29B97314FDCFA39411CA2CEA /* SystemLog */ = {
 			isa = PBXGroup;
 			children = (
+				E07CE0851142CA4600EB3CE2 /* README.md */,
 				E03B9CB7113B01D500628BF9 /* Core */,
 				E02E6F6F113B009100735C3A /* SystemLog */,
 				E03B9CD2113B033300628BF9 /* SystemLog-Tests */,
