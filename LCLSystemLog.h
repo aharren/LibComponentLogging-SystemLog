@@ -32,9 +32,11 @@
 //
 // LCLSystemLog
 //
-// LCLSystemLog is a LibComponentLogging logger implementation which sends
-// log messages to the Apple System Log facility (ASL). See asl, syslog, and
-// syslogd for details.
+// LCLSystemLog is a logging back-end implementation which sends log messages
+// to the Apple System Log facility (ASL) (see man pages of asl, syslog, and
+// syslogd for details). LCLSystemLog can be used as a logging back-end for
+// LibComponentLogging, but it is also useable as a standalone logging class
+// without the Core files of LibComponentLogging.
 //
 // With ASL, log messages are stored as structured messages in a data store.
 // The syslog utility or the Console application can be used to retrieve
@@ -45,7 +47,7 @@
 // retrieves all messages from the data store where the value associated with
 // the 'Sender' key (the identifier of an application) is equal to 'Example' and
 // where a value for the 'Level0' key exists. The key 'Level0' is used by
-// LCLSystemLog to store the LCL log level in addition to a mapped ASL priority
+// LCLSystemLog to store the log level in addition to a mapped ASL priority
 // level ('Level' key). All retrieved messages will be printed by using the UTC
 // time format and the display format specified via -F. Example output:
 //
@@ -63,15 +65,20 @@
 // can be used to tell syslogd to store messages up to priority level 'Debug'.
 //
 //
-// LCLSystemLog is configured via the following define which should be specified
-// in lcl_config_logger.h:
+// LCLSystemLog is configured via the following #defines in LCLSystemLogConfig.h
+// (see #import below):
 //
 // - Mirror log messages to stderr? (type BOOL)
 //   #define _LCLSystemLog_MirrorMessagesToStdErr <definition>
 //
 //
-// Note: When using LCLSystemLog, please use a 'Reverse ICANN' naming scheme
-//       for log component headers as suggested by the ASL documentation.
+// When using LCLSystemLog as a back-end for LibComponentLogging, simply add an
+//   #import "LCLSystemLog.h"
+// statement to your lcl_config_logger.h file and use the LCLSystemLogConfig.h
+// file for detailed configuration of the LCLSystemLog class.
+//
+// Please use a 'Reverse ICANN' naming scheme for log component headers as
+// suggested by the ASL documentation.
 //
 
 
