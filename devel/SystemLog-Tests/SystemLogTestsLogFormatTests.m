@@ -41,6 +41,20 @@
 - (void)setUp {
 }
 
+- (void)testLogFormatWithNULLFileName {
+    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    
+    [LCLSystemLog logWithIdentifier:"i1" level:3 path:NULL line:0 format:@"message, no file name"];
+    
+    ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
+    STAssertEquals([messages count], (NSUInteger)1, nil);
+    
+    ASLMessage *message1 = [messages messageAtIndex:0];
+    STAssertEqualObjects([message1 valueForKey:@"Facility"], @"i1", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Level"], @"3", nil);
+    STAssertEqualObjects([message1 valueForKey:@"File"], @"(null)", nil);
+}
+
 - (void)testLogFormatLogLevels {
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     

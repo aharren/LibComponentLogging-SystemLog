@@ -146,7 +146,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
                               const char *path_c, uint32_t line,
                               const char *message_c) {
     // get file name from path
-    const char *file_c = strrchr(path_c, '/');
+    const char *file_c = (path_c != NULL) ? strrchr(path_c, '/') : NULL;
     file_c = (file_c != NULL) ? (file_c + 1) : NULL;
     
     // get line
