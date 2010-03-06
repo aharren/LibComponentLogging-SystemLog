@@ -28,6 +28,13 @@
 //
 
 
+// Rename the LCLSystemLog class by adding your application/framework's unique
+// prefix in order to avoid duplicate symbols in the global class namespace.
+#ifndef LCLSystemLog
+#define LCLSystemLog                                                           \
+    <UniquePrefix>LCLSystemLog
+#endif
+
 // Tell LCLSystemLog whether it should mirror the log messages to stderr.
 #define _LCLSystemLog_MirrorMessagesToStdErr                                   \
     NO

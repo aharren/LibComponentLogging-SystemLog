@@ -34,6 +34,10 @@
 //
 
 
+#ifndef LCLSystemLog
+#error  'LCLSystemLog' must be defined in LCLSystemLogConfig.h
+#endif
+
 #ifndef _LCLSystemLog_MirrorMessagesToStdErr
 #error  '_LCLSystemLog_MirrorMessagesToStdErr' must be defined in LCLSystemLogConfig.h
 #endif
