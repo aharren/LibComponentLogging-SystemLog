@@ -40,6 +40,9 @@
         uint32_t idx = 0;
         while ((key = asl_key(message, idx++))) {
             const char *value = asl_get(message, key);
+            if (value == NULL) {
+                value = "(null)";
+            }
             [valuesByKey setObject:[NSString stringWithUTF8String:value]
                             forKey:[NSString stringWithUTF8String:key]];
         }
@@ -115,8 +118,8 @@
         
         // log the tag and some dummy entries
         asl_log(NULL, NULL, 1, "%s", [tag UTF8String]);
-        asl_log(NULL, NULL, 1, "tag begin 1");
-        asl_log(NULL, NULL, 1, "tag begin 2");
+        asl_log(NULL, NULL, 1, "tag begin a");
+        asl_log(NULL, NULL, 1, "tag begin b");
         
         // create a query with the tag and the pid
         aslmsg query = asl_new(ASL_TYPE_QUERY);
@@ -124,6 +127,7 @@
         asl_set_query(query, "PID", [[NSString stringWithFormat:@"%u", getpid()] UTF8String], ASL_QUERY_OP_EQUAL);
         
         // query the data store and keep the message id as an identifier
+        uint32_t iteration = 1;
         do {
             aslresponse aslResponse = asl_search(NULL, query);
             aslmsg aslMessage = NULL;
@@ -141,6 +145,8 @@
             }
             
             // identifier is not set, retry
+            asl_log(NULL, NULL, 1, "tag begin %u", iteration);
+            iteration++;
             sleep(1);
         } while (true);
         
@@ -175,8 +181,8 @@
     
     // log the tag and some dummy entries
     asl_log(NULL, NULL, 1, "%s", [tag UTF8String]);
-    asl_log(NULL, NULL, 1, "tag end 1");
-    asl_log(NULL, NULL, 1, "tag end 2");
+    asl_log(NULL, NULL, 1, "tag end a");
+    asl_log(NULL, NULL, 1, "tag end b");
     
     // create a query with the mark's identifier (the message id) and the pid
     aslmsg query = asl_new(ASL_TYPE_QUERY);
@@ -185,6 +191,7 @@
     
     // query the data store and create messages
     ASLMessageArray *messages = nil;
+    uint32_t iteration = 1;
     do {
         aslresponse response = asl_search(NULL, query);
         BOOL tagFound = NO;
@@ -197,6 +204,8 @@
         }
         
         // the tag wasn't there, retry
+        asl_log(NULL, NULL, 1, "tag end %u", iteration);
+        iteration++;
         sleep(1);
     } while (true);
     
