@@ -40,6 +40,7 @@
 
 - (void)setUp {
     [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
     [LCLSystemLog initialize];
     
     // enable logging for component Main and MainComponent1
@@ -146,7 +147,7 @@
     STAssertEqualObjects([message1 valueForKey:@"Level"], @"5", nil);
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"SystemLogTestsLCLLoggingTests.m", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Line"], @"138", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Line"], @"139", nil);
     STAssertEqualObjects([message1 valueForKey:@"Function"], @"-[SystemLogTestsLCLLoggingTests testLoggingWithLogMacro]", nil);
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"message with macro, 1", nil);
 }

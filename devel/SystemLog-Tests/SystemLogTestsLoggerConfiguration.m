@@ -27,12 +27,14 @@
 
 
 static BOOL SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
+static BOOL SystemLogTestsLoggerConfiguration_usePerThreadConnections = NO;
 
 
 @implementation SystemLogTestsLoggerConfiguration
 
 + (void)initialize {
     SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
+    SystemLogTestsLoggerConfiguration_usePerThreadConnections = NO;
 }
 
 + (BOOL)mirrorMessagesToStdErr {
@@ -41,6 +43,14 @@ static BOOL SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
 
 + (void)setMirrorMessagesToStdErr:(BOOL)mirror {
     SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = mirror;
+}
+
++ (BOOL)usePerThreadConnections {
+    return SystemLogTestsLoggerConfiguration_usePerThreadConnections;
+}
+
++ (void)setUsePerThreadConnections:(BOOL)perThread {
+    SystemLogTestsLoggerConfiguration_usePerThreadConnections = perThread;
 }
 
 @end

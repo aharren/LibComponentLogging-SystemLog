@@ -40,6 +40,7 @@
 
 - (void)setUp {
     [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
     [LCLSystemLog initialize];
 }
 

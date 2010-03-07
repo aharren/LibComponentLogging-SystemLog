@@ -24,15 +24,20 @@
 // THE SOFTWARE.
 
 
-// Rename the LCLSystemLog class by adding your application/framework's unique
+// Rename the LCLSystemLog classes by adding your application/framework's unique
 // prefix in order to avoid duplicate symbols in the global class namespace.
 #define LCLSystemLog                                                           \
     SystemLogTestsLCLSystemLog
+#define LCLSystemLogConnection                                                 \
+    SystemLogTestsLCLSystemLogConnection
 
 // Tell LCLSystemLog whether it should mirror the log messages to stderr.
 #define _LCLSystemLog_MirrorMessagesToStdErr                                   \
     [SystemLogTestsLoggerConfiguration mirrorMessagesToStdErr]
 
+// Tell LCLSystemLog whether it should create ASL connections for each thread.
+#define _LCLSystemLog_UsePerThreadConnections                                  \
+    [SystemLogTestsLoggerConfiguration usePerThreadConnections]
 
 // SystemLogTestsLoggerConfiguration holds the configuration data.
 #import "SystemLogTestsLoggerConfiguration.h"

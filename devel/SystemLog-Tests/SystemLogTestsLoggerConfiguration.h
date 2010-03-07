@@ -33,5 +33,8 @@
 + (BOOL)mirrorMessagesToStdErr;
 + (void)setMirrorMessagesToStdErr:(BOOL)mirror;
 
++ (BOOL)usePerThreadConnections;
++ (void)setUsePerThreadConnections:(BOOL)perThread;
+
 @end
 

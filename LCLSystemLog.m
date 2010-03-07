@@ -38,8 +38,16 @@
 #error  'LCLSystemLog' must be defined in LCLSystemLogConfig.h
 #endif
 
+#ifndef LCLSystemLogConnection
+#error  'LCLSystemLogConnection' must be defined in LCLSystemLogConfig.h
+#endif
+
 #ifndef _LCLSystemLog_MirrorMessagesToStdErr
 #error  '_LCLSystemLog_MirrorMessagesToStdErr' must be defined in LCLSystemLogConfig.h
+#endif
+
+#ifndef _LCLSystemLog_UsePerThreadConnections
+#error  '_LCLSystemLog_UsePerThreadConnections' must be defined in LCLSystemLogConfig.h
 #endif
 
 
@@ -48,11 +56,17 @@
 //
 
 
-// A lock which is held when the asl client connection is used.
-static NSRecursiveLock *_LCLSystemLog_aslClientLock = nil;
+// A lock which is held when the global ASL client connection is used.
+static NSLock *_LCLSystemLog_globalAslClientLock = nil;
 
-// The asl client connection to use.
-static aslclient _LCLSystemLog_aslClient = NULL;
+// The global ASL client connection.
+static aslclient _LCLSystemLog_globalAslClient = NULL;
+
+// YES, if log messages should be mirrored to stderr.
+static BOOL _LCLSystemLog_mirrorToStdErr = NO;
+
+// YES, if an ASL connection should be created for every thread.
+static BOOL _LCLSystemLog_useThreadLocalConnections = NO;
 
 // Log levels known by asl, indexed by ASL log level.
 static const char * const _LCLSystemLog_aslLogLevelASL[] = {
@@ -101,6 +115,35 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 };
 
 
+//
+// Holder for a per-thread connection.
+//
+
+
+@interface LCLSystemLogConnection : NSObject {
+    
+@public
+    aslclient client_asl;
+    
+}
+
+@end
+
+@implementation LCLSystemLogConnection
+
+- (void)dealloc {
+    asl_close(client_asl);
+    [super dealloc];
+}
+
+- (void)finalize {
+    asl_close(client_asl);
+    [super finalize];
+}
+
+@end
+
+
 @implementation LCLSystemLog
 
 
@@ -108,6 +151,25 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 // Initialization.
 //
 
+
+// Creates a new ASL connection.
+static aslclient _LCLSystemLog_createAslConnection() {
+    uint32_t client_opts = 0;
+    if (_LCLSystemLog_mirrorToStdErr) {
+        // mirror log messages to stderr if requested
+        client_opts |= ASL_OPT_STDERR;
+    }
+    
+    // open the asl client connection
+    aslclient client = asl_open(NULL, NULL, client_opts);
+    
+    // log all messages up to DEBUG
+    if (client) {
+        asl_set_filter(client, ASL_FILTER_MASK_UPTO(ASL_LEVEL_DEBUG));
+    }
+    
+    return client;
+}
 
 // No instances, please.
 +(id)alloc {
@@ -121,20 +183,19 @@ static const char * const _LCLSystemLog_level0LCL[] = {
     if (self != [LCLSystemLog class])
         return;
     
-    // create the lock
-    _LCLSystemLog_aslClientLock = [[NSRecursiveLock alloc] init];
+    // get whether we should mirror log messages to stderr
+    _LCLSystemLog_mirrorToStdErr = (_LCLSystemLog_MirrorMessagesToStdErr);
     
-    // open an asl client connection
-    uint32_t client_opts = 0;
-    if (_LCLSystemLog_MirrorMessagesToStdErr) {
-        // mirror log messages to stderr if requested
-        client_opts |= ASL_OPT_STDERR;
-    }
-    _LCLSystemLog_aslClient = asl_open(NULL, NULL, client_opts);
+    // get whether we should create an ASL connection for each thread
+    _LCLSystemLog_useThreadLocalConnections = (_LCLSystemLog_UsePerThreadConnections);
     
-    // log all messages up to DEBUG
-    if (_LCLSystemLog_aslClient != NULL) {
-        asl_set_filter(_LCLSystemLog_aslClient, ASL_FILTER_MASK_UPTO(ASL_LEVEL_DEBUG));
+    // create a global ASL connection if we are not using per-thread connections
+    if (!_LCLSystemLog_useThreadLocalConnections) {
+        // create a lock
+        _LCLSystemLog_globalAslClientLock = [[NSLock alloc] init];
+        
+        // create the global ASL client connection
+        _LCLSystemLog_globalAslClient = _LCLSystemLog_createAslConnection();
     }
 }
 
@@ -199,11 +260,37 @@ static void _LCLSystemLog_log(const char *identifier_c,
     asl_set(message_asl, "Function", function_c);
     
     // send the system log message
-    [_LCLSystemLog_aslClientLock lock];
-    {
-        asl_send(_LCLSystemLog_aslClient, message_asl);
+    if (_LCLSystemLog_useThreadLocalConnections) {
+        // use a thread-local ASL connection
+        aslclient client_asl = NULL;
+        // look up the ASL connection in the thread dictionary
+        NSMutableDictionary *threadDictionary = [[NSThread currentThread] threadDictionary];
+#       undef  as_NSString
+#       define as_NSString( _text) as_NSString0(_text)
+#       define as_NSString0(_text) @#_text
+        LCLSystemLogConnection *connection = (LCLSystemLogConnection *)[threadDictionary objectForKey:as_NSString(LCLSystemLogConnection)];
+        if (!connection) {
+            // connection doesn't exist, create one and add it to the thread
+            // dictionary; it will be destroyed when the thread dies
+            connection = [[LCLSystemLogConnection alloc] init];
+            if (connection) {
+                client_asl = _LCLSystemLog_createAslConnection();
+                connection->client_asl = client_asl;
+                [threadDictionary setObject:connection
+                                     forKey:as_NSString(LCLSystemLogConnection)];
+                [connection release];
+            }
+        }
+#       undef  as_NSString
+        asl_send(client_asl, message_asl);
+    } else {
+        // use the global ASL connection under lock protection
+        [_LCLSystemLog_globalAslClientLock lock];
+        {
+            asl_send(_LCLSystemLog_globalAslClient, message_asl);
+        }
+        [_LCLSystemLog_globalAslClientLock unlock];
     }
-    [_LCLSystemLog_aslClientLock unlock];
     
     // free the system log message
     asl_free(message_asl);
