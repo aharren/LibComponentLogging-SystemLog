@@ -1,6 +1,6 @@
 //
 //
-// LCLSystemLogConfig.h
+// SystemLogTestsLoggerConfiguration.m
 //
 //
 // Copyright (c) 2008-2010 Arne Harren <ah@0xc0.de>
@@ -23,17 +23,25 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-
-// Rename the LCLSystemLog class by adding your application/framework's unique
-// prefix in order to avoid duplicate symbols in the global class namespace.
-#define LCLSystemLog                                                           \
-    SystemLogTestsLCLSystemLog
-
-// Tell LCLSystemLog whether it should mirror the log messages to stderr.
-#define _LCLSystemLog_MirrorMessagesToStdErr                                   \
-    [SystemLogTestsLoggerConfiguration mirrorMessagesToStdErr]
-
-
-// SystemLogTestsLoggerConfiguration holds the configuration data.
 #import "SystemLogTestsLoggerConfiguration.h"
+
+
+static BOOL SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
+
+
+@implementation SystemLogTestsLoggerConfiguration
+
++ (void)initialize {
+    SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
+}
+
++ (BOOL)mirrorMessagesToStdErr {
+    return SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr;
+}
+
++ (void)setMirrorMessagesToStdErr:(BOOL)mirror {
+    SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = mirror;
+}
+
+@end
 

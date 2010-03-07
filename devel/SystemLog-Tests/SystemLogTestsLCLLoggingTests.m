@@ -39,6 +39,9 @@
 @implementation SystemLogTestsLCLLoggingTests
 
 - (void)setUp {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [LCLSystemLog initialize];
+    
     // enable logging for component Main and MainComponent1
     lcl_configure_by_name("*", lcl_vOff);
     lcl_configure_by_component(lcl_cMain, lcl_vDebug);
@@ -143,7 +146,7 @@
     STAssertEqualObjects([message1 valueForKey:@"Level"], @"5", nil);
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"SystemLogTestsLCLLoggingTests.m", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Line"], @"135", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Line"], @"138", nil);
     STAssertEqualObjects([message1 valueForKey:@"Function"], @"-[SystemLogTestsLCLLoggingTests testLoggingWithLogMacro]", nil);
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"message with macro, 1", nil);
 }

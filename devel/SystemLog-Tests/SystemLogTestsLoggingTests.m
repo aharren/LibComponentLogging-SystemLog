@@ -39,6 +39,8 @@
 @implementation SystemLogTestsLoggingTests
 
 - (void)setUp {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [LCLSystemLog initialize];
 }
 
 - (void)testLoggingWithVarArgsLogMethod {

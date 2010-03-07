@@ -39,6 +39,8 @@
 @implementation SystemLogTestsLCLLogFormatTests
 
 - (void)setUp {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [LCLSystemLog initialize];
 }
 
 - (void)testLogFormatLogLevels {
