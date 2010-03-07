@@ -41,6 +41,7 @@
 		E07CE1421142E0DD00EB3CE2 /* SystemLogTestsLCLLoggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */; };
 		E07CE1431142E0DD00EB3CE2 /* SystemLogTestsLCLLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */; };
 		E07CE1441142E0DD00EB3CE2 /* SystemLogTestsLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */; };
+		E0B443FE1143D32C00390B71 /* SystemLogTestsLoggerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E056AC8A1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m */; };
 		E0DB2F57113B079C003E06ED /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
 		E0DB2F58113B079C003E06ED /* LCLSystemLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E02E6F72113B009D00735C3A /* LCLSystemLog.m */; };
 		E0E6ACF1113B04A700DD0374 /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
