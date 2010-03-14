@@ -59,7 +59,7 @@
     STAssertNil(connection, nil);
     
     // log on main thread
-    [LCLSystemLog logWithIdentifier:"ident" level:3 path:"path/file" line:1 function:"f" message:@"message"];
+    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-ident" level:3 path:"path/file" line:1 function:"f" message:@"message"];
     
     // per-thread ASL connection should exist
     connection = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
@@ -70,7 +70,7 @@
     STAssertEquals([messages count], (NSUInteger)1, nil);
     
     ASLMessage *message1 = [messages messageAtIndex:0];
-    STAssertEqualObjects([message1 valueForKey:@"Facility"], @"ident", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Facility"], @"PerThreadConnectionsTest-ident", nil);
     STAssertEqualObjects([message1 valueForKey:@"Thread"], thread, nil);
     STAssertEqualObjects([message1 valueForKey:@"Level"], @"3", nil);
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"E", nil);
@@ -88,7 +88,7 @@ static NSObject *thread1ConnectionAtEnd = nil;
     thread1ConnectionAtStart = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     [thread1ConnectionAtStart retain];
     
-    [LCLSystemLog logWithIdentifier:"thread1" level:3 path:"path/file1" line:1 function:"f1" message:@"message: thread1"];
+    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-thread1" level:3 path:"path/file1" line:1 function:"f1" message:@"message: thread1"];
     
     thread1ConnectionAtEnd = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     [thread1ConnectionAtEnd retain];
@@ -106,7 +106,7 @@ static NSObject *thread2ConnectionAtEnd = nil;
     thread2ConnectionAtStart = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     [thread2ConnectionAtStart retain];
     
-    [LCLSystemLog logWithIdentifier:"thread2" level:3 path:"path/file2" line:2 function:"f2" message:@"message: thread2"];
+    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-thread2" level:3 path:"path/file2" line:2 function:"f2" message:@"message: thread2"];
     
     thread2ConnectionAtEnd = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     [thread2ConnectionAtEnd retain];
@@ -139,7 +139,7 @@ static NSObject *thread2ConnectionAtEnd = nil;
     [NSThread detachNewThreadSelector:@selector(thread2Main) toTarget:self withObject:nil];
     
     // log on main thread
-    [LCLSystemLog logWithIdentifier:"main" level:3 path:"path/file0" line:0 function:"f0" message:@"message: main"];
+    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-main" level:3 path:"path/file0" line:0 function:"f0" message:@"message: main"];
     
     // per-thread ASL connection should exist on the main thread
     connection = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
@@ -176,9 +176,9 @@ static NSObject *thread2ConnectionAtEnd = nil;
     for (NSUInteger i = 0; i < 3; i++) {
         ASLMessage *message = [messages messageAtIndex:i];
         NSString *facility = [message valueForKey:@"Facility"];
-        if ([facility isEqualToString:@"main"]) {
+        if ([facility isEqualToString:@"PerThreadConnectionsTest-main"]) {
             messageMainSeen = YES;
-            STAssertEqualObjects([message valueForKey:@"Facility"], @"main", nil);
+            STAssertEqualObjects([message valueForKey:@"Facility"], @"PerThreadConnectionsTest-main", nil);
             STAssertEqualObjects([message valueForKey:@"Thread"], thread, nil);
             STAssertEqualObjects([message valueForKey:@"Level"], @"3", nil);
             STAssertEqualObjects([message valueForKey:@"Level0"], @"E", nil);
@@ -186,9 +186,9 @@ static NSObject *thread2ConnectionAtEnd = nil;
             STAssertEqualObjects([message valueForKey:@"Line"], @"0", nil);
             STAssertEqualObjects([message valueForKey:@"Function"], @"f0", nil);
             STAssertEqualObjects([message valueForKey:@"Message"], @"message: main", nil);
-        } else if ([facility isEqualToString:@"thread1"]) {
+        } else if ([facility isEqualToString:@"PerThreadConnectionsTest-thread1"]) {
             messageThread1Seen = YES;
-            STAssertEqualObjects([message valueForKey:@"Facility"], @"thread1", nil);
+            STAssertEqualObjects([message valueForKey:@"Facility"], @"PerThreadConnectionsTest-thread1", nil);
             STAssertFalse([thread isEqualToString:[message valueForKey:@"Thread"]], nil);
             STAssertEqualObjects([message valueForKey:@"Level"], @"3", nil);
             STAssertEqualObjects([message valueForKey:@"Level0"], @"E", nil);
@@ -196,9 +196,9 @@ static NSObject *thread2ConnectionAtEnd = nil;
             STAssertEqualObjects([message valueForKey:@"Line"], @"1", nil);
             STAssertEqualObjects([message valueForKey:@"Function"], @"f1", nil);
             STAssertEqualObjects([message valueForKey:@"Message"], @"message: thread1", nil);
-        } else if ([facility isEqualToString:@"thread2"]) {
+        } else if ([facility isEqualToString:@"PerThreadConnectionsTest-thread2"]) {
             messageThread2Seen = YES;
-            STAssertEqualObjects([message valueForKey:@"Facility"], @"thread2", nil);
+            STAssertEqualObjects([message valueForKey:@"Facility"], @"PerThreadConnectionsTest-thread2", nil);
             STAssertFalse([thread isEqualToString:[message valueForKey:@"Thread"]], nil);
             STAssertEqualObjects([message valueForKey:@"Level"], @"3", nil);
             STAssertEqualObjects([message valueForKey:@"Level0"], @"E", nil);
