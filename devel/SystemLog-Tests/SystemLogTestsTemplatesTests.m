@@ -1,6 +1,6 @@
 //
 //
-// LCLSystemLogConfig.h
+// SystemLogTestsTemplatesTests.m
 //
 //
 // Copyright (c) 2008-2010 Arne Harren <ah@0xc0.de>
@@ -23,10 +23,38 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#import "lcl.h"
+#import <SenTestingKit/SenTestingKit.h>
 
-#ifdef SYSTEMLOG_TESTS_TEMPLATES_BUILD
-#include "LCLSystemLogConfig.template.h"
-#else
-#include "SystemLogTestsSystemLogConfig.h"
-#endif
+
+@interface SystemLogTestsTemplatesTests : SenTestCase {
+    
+}
+
+@end
+
+
+@implementation SystemLogTestsTemplatesTests
+
+#undef  as_NSString
+#define as_NSString( _text) as_NSString0(_text)
+#define as_NSString0(_text) @#_text
+
+- (void)setUp {
+}
+
+- (void)testClassNames {
+    STAssertEqualObjects(as_NSString(LCLSystemLog), @"LCLSystemLog", nil);
+    STAssertEqualObjects(as_NSString(LCLSystemLogConnection), @"LCLSystemLogConnection", nil);
+}
+
+- (void)testConfigurationMirrorsToStdErr {
+    STAssertEquals((int)[LCLSystemLog mirrorsToStdErr], (int)NO, nil);
+}
+
+- (void)testConfigurationUsesPerThreadConnections {
+    STAssertEquals((int)[LCLSystemLog usesPerThreadConnections], (int)YES, nil);
+}
+
+@end
 

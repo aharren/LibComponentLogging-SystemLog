@@ -1,6 +1,6 @@
 //
 //
-// LCLSystemLogConfig.h
+// SystemLogTestsSystemLogConfig.h
 //
 //
 // Copyright (c) 2008-2010 Arne Harren <ah@0xc0.de>
@@ -24,9 +24,21 @@
 // THE SOFTWARE.
 
 
-#ifdef SYSTEMLOG_TESTS_TEMPLATES_BUILD
-#include "LCLSystemLogConfig.template.h"
-#else
-#include "SystemLogTestsSystemLogConfig.h"
-#endif
+// Rename the LCLSystemLog classes by adding your application/framework's unique
+// prefix in order to avoid duplicate symbols in the global class namespace.
+#define LCLSystemLog                                                           \
+    SystemLogTestsLCLSystemLog
+#define LCLSystemLogConnection                                                 \
+    SystemLogTestsLCLSystemLogConnection
+
+// Tell LCLSystemLog whether it should mirror the log messages to stderr.
+#define _LCLSystemLog_MirrorMessagesToStdErr                                   \
+    [SystemLogTestsLoggerConfiguration mirrorMessagesToStdErr]
+
+// Tell LCLSystemLog whether it should create ASL connections for each thread.
+#define _LCLSystemLog_UsePerThreadConnections                                  \
+    [SystemLogTestsLoggerConfiguration usePerThreadConnections]
+
+// SystemLogTestsLoggerConfiguration holds the configuration data.
+#import "SystemLogTestsLoggerConfiguration.h"
 
