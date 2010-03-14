@@ -71,6 +71,9 @@
 // - Mirror log messages to stderr? (type BOOL)
 //   #define _LCLSystemLog_MirrorMessagesToStdErr <definition>
 //
+// - Create ASL connections for each thread? (type BOOL)
+//   #define _LCLSystemLog_UsePerThreadConnections <definition>
+//
 //
 // When using LCLSystemLog as a back-end for LibComponentLogging, simply add an
 //   #import "LCLSystemLog.h"
