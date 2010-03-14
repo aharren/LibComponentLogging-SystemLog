@@ -414,5 +414,22 @@ static void _LCLSystemLog_log(const char *identifier_c,
     [pool release];
 }
 
+
+//
+// Configuration.
+//
+
+
+// Returns whether log messages are mirrored to stderr.
++ (BOOL)mirrorsToStdErr {
+    return _LCLSystemLog_mirrorToStdErr;
+}
+
+// Returns whether ASL connections are created for each thread.
++ (BOOL)usesPerThreadConnections {
+    return _LCLSystemLog_useThreadLocalConnections;
+}
+
+
 @end
 

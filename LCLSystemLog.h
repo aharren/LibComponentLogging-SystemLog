@@ -141,6 +141,19 @@
                  function:(const char *)function
                    format:(NSString *)format, ... __attribute__((format(__NSString__, 6, 7)));
 
+
+//
+// Configuration.
+//
+
+
+// Returns whether log messages are mirrored to stderr.
++ (BOOL)mirrorsToStdErr;
+
+// Returns whether ASL connections are created for each thread.
++ (BOOL)usesPerThreadConnections;
+
+
 @end
 
 
