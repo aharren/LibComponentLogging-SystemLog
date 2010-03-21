@@ -32,23 +32,23 @@
     SystemLogTestsLCLSystemLogConnection
 
 // Tell LCLSystemLog whether it should mirror the log messages to stderr.
-#define _LCLSystemLog_MirrorMessagesToStdErr                                   \
+#define _LCLSystemLog_MirrorMessagesToStdErr /* (BOOL) */                      \
     [SystemLogTestsLoggerConfiguration mirrorMessagesToStdErr]
 
 // Tell LCLSystemLog whether it should create ASL connections for each thread.
-#define _LCLSystemLog_UsePerThreadConnections                                  \
+#define _LCLSystemLog_UsePerThreadConnections /* (BOOL) */                     \
     [SystemLogTestsLoggerConfiguration usePerThreadConnections]
 
 // Tell LCLSystemLog whether it should show file names.
-#define _LCLSystemLog_ShowFileNames                                            \
+#define _LCLSystemLog_ShowFileNames /* (BOOL) */                               \
     [SystemLogTestsLoggerConfiguration showFileNames]
 
 // Tell LCLSystemLog whether it should show line numbers.
-#define _LCLSystemLog_ShowLineNumbers                                          \
+#define _LCLSystemLog_ShowLineNumbers /* (BOOL) */                             \
     [SystemLogTestsLoggerConfiguration showLineNumbers]
 
 // Tell LCLSystemLog whether it should show function names.
-#define _LCLSystemLog_ShowFunctionNames                                        \
+#define _LCLSystemLog_ShowFunctionNames /* (BOOL) */                           \
     [SystemLogTestsLoggerConfiguration showFunctionNames]
 
 // SystemLogTestsLoggerConfiguration holds the configuration data.
