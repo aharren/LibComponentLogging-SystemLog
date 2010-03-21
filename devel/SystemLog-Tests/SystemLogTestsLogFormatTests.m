@@ -23,7 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "LCLSystemLog.h"
+#import "lcl.h"
 #import <SenTestingKit/SenTestingKit.h>
 #import "ASLDataStore.h"
 #include <mach/mach_init.h>
