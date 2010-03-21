@@ -56,5 +56,16 @@
     STAssertEquals((int)[LCLSystemLog usesPerThreadConnections], (int)YES, nil);
 }
 
+- (void)testShowsFileNames {
+    STAssertEquals((int)[LCLSystemLog showsFileNames], (int)YES, nil);
+}
+
+- (void)testShowsLineNumbers {
+    STAssertEquals((int)[LCLSystemLog showsLineNumbers], (int)YES, nil);
+}
+
+- (void)testShowsFunctionNames {
+    STAssertEquals((int)[LCLSystemLog showsFunctionNames], (int)YES, nil);
+}
 @end
 

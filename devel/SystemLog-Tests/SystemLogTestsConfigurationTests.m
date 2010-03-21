@@ -63,5 +63,41 @@
     STAssertEquals((int)[LCLSystemLog usesPerThreadConnections], (int)NO, nil);
 }
 
+- (void)testShowsFileNames {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [LCLSystemLog initialize];
+    STAssertEquals((int)[LCLSystemLog showsFileNames], (int)YES, nil);
+    
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:NO];
+    [LCLSystemLog initialize];
+    STAssertEquals((int)[LCLSystemLog showsFileNames], (int)NO, nil);
+}
+
+- (void)testShowsLineNumbers {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [LCLSystemLog initialize];
+    STAssertEquals((int)[LCLSystemLog showsLineNumbers], (int)YES, nil);
+    
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:NO];
+    [LCLSystemLog initialize];
+    STAssertEquals((int)[LCLSystemLog showsLineNumbers], (int)NO, nil);
+}
+
+- (void)testShowsFunctionNames {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
+    [LCLSystemLog initialize];
+    STAssertEquals((int)[LCLSystemLog showsFunctionNames], (int)YES, nil);
+    
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:NO];
+    [LCLSystemLog initialize];
+    STAssertEquals((int)[LCLSystemLog showsFunctionNames], (int)NO, nil);
+}
+
 @end
 

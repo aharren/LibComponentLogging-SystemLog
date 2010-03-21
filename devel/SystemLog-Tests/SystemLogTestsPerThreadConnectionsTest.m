@@ -47,6 +47,9 @@
 - (void)testPerThreadConnectionsOnMainThread {
     [SystemLogTestsLoggerConfiguration initialize];
     [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:YES];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
@@ -119,6 +122,9 @@ static NSObject *thread2ConnectionAtEnd = nil;
 - (void)testPerThreadConnectionsWith2NewsThreads {
     [SystemLogTestsLoggerConfiguration initialize];
     [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:YES];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];

@@ -41,6 +41,9 @@
 - (void)setUp {
     [SystemLogTestsLoggerConfiguration initialize];
     [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
 }
 

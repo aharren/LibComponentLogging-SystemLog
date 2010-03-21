@@ -36,5 +36,14 @@
 + (BOOL)usePerThreadConnections;
 + (void)setUsePerThreadConnections:(BOOL)perThread;
 
++ (BOOL)showFileNames;
++ (void)setShowFileNames:(BOOL)show;
+
++ (BOOL)showLineNumbers;
++ (void)setShowLineNumbers:(BOOL)show;
+
++ (BOOL)showFunctionNames;
++ (void)setShowFunctionNames:(BOOL)show;
+
 @end
 

@@ -83,6 +83,9 @@ static NSObject *thread2ConnectionAtEnd = nil;
 - (void)testThreadedWith2NewsThreads {
     [SystemLogTestsLoggerConfiguration initialize];
     [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];

@@ -39,6 +39,18 @@
 #define _LCLSystemLog_UsePerThreadConnections                                  \
     [SystemLogTestsLoggerConfiguration usePerThreadConnections]
 
+// Tell LCLSystemLog whether it should show file names.
+#define _LCLSystemLog_ShowFileNames                                            \
+    [SystemLogTestsLoggerConfiguration showFileNames]
+
+// Tell LCLSystemLog whether it should show line numbers.
+#define _LCLSystemLog_ShowLineNumbers                                          \
+    [SystemLogTestsLoggerConfiguration showLineNumbers]
+
+// Tell LCLSystemLog whether it should show function names.
+#define _LCLSystemLog_ShowFunctionNames                                        \
+    [SystemLogTestsLoggerConfiguration showFunctionNames]
+
 // SystemLogTestsLoggerConfiguration holds the configuration data.
 #import "SystemLogTestsLoggerConfiguration.h"
 

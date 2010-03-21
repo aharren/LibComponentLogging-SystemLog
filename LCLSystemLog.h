@@ -74,6 +74,15 @@
 // - Create ASL connections for each thread? (type BOOL)
 //   #define _LCLSystemLog_UsePerThreadConnections <definition>
 //
+// - Show file names in the log messages? (type BOOL)
+//   #define _LCLSystemLog_ShowFileNames <definition>
+//
+// - Show line numbers in the log messages? (type BOOL)
+//   #define _LCLSystemLog_ShowLineNumbers <definition>
+//
+// - Show function names in the log messages? (type BOOL)
+//   #define _LCLSystemLog_ShowFunctionNames <definition>
+//
 //
 // When using LCLSystemLog as a back-end for LibComponentLogging, simply add an
 //   #import "LCLSystemLog.h"
@@ -152,6 +161,15 @@
 
 // Returns whether ASL connections are created for each thread.
 + (BOOL)usesPerThreadConnections;
+
+// Returns whether file names are shown.
++ (BOOL)showsFileNames;
+
+// Returns whether line numbers are shown.
++ (BOOL)showsLineNumbers;
+
+// Returns whether function names are shown.
++ (BOOL)showsFunctionNames;
 
 
 @end

@@ -28,6 +28,9 @@
 
 static BOOL SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
 static BOOL SystemLogTestsLoggerConfiguration_usePerThreadConnections = NO;
+static BOOL SystemLogTestsLoggerConfiguration_showFileNames = NO;
+static BOOL SystemLogTestsLoggerConfiguration_showLineNumbers = NO;
+static BOOL SystemLogTestsLoggerConfiguration_showFunctionNames = NO;
 
 
 @implementation SystemLogTestsLoggerConfiguration
@@ -35,6 +38,9 @@ static BOOL SystemLogTestsLoggerConfiguration_usePerThreadConnections = NO;
 + (void)initialize {
     SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
     SystemLogTestsLoggerConfiguration_usePerThreadConnections = NO;
+    SystemLogTestsLoggerConfiguration_showFileNames = NO;
+    SystemLogTestsLoggerConfiguration_showLineNumbers = NO;
+    SystemLogTestsLoggerConfiguration_showFunctionNames = NO;
 }
 
 + (BOOL)mirrorMessagesToStdErr {
@@ -51,6 +57,30 @@ static BOOL SystemLogTestsLoggerConfiguration_usePerThreadConnections = NO;
 
 + (void)setUsePerThreadConnections:(BOOL)perThread {
     SystemLogTestsLoggerConfiguration_usePerThreadConnections = perThread;
+}
+
++ (BOOL)showFileNames {
+    return SystemLogTestsLoggerConfiguration_showFileNames;
+}
+
++ (void)setShowFileNames:(BOOL)show {
+    SystemLogTestsLoggerConfiguration_showFileNames = show;
+}
+
++ (BOOL)showLineNumbers {
+    return SystemLogTestsLoggerConfiguration_showLineNumbers;
+}
+
++ (void)setShowLineNumbers:(BOOL)show {
+    SystemLogTestsLoggerConfiguration_showLineNumbers = show;
+}
+
++ (BOOL)showFunctionNames {
+    return SystemLogTestsLoggerConfiguration_showFunctionNames;
+}
+
++ (void)setShowFunctionNames:(BOOL)show {
+    SystemLogTestsLoggerConfiguration_showFunctionNames = show;
 }
 
 @end

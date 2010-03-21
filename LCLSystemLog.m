@@ -50,6 +50,18 @@
 #error  '_LCLSystemLog_UsePerThreadConnections' must be defined in LCLSystemLogConfig.h
 #endif
 
+#ifndef _LCLSystemLog_ShowFileNames
+#error  '_LCLSystemLog_ShowFileNames' must be defined in LCLSystemLogConfig.h
+#endif
+
+#ifndef _LCLSystemLog_ShowLineNumbers
+#error  '_LCLSystemLog_ShowLineNumbers' must be defined in LCLSystemLogConfig.h
+#endif
+
+#ifndef _LCLSystemLog_ShowFunctionNames
+#error  '_LCLSystemLog_ShowFunctionNames' must be defined in LCLSystemLogConfig.h
+#endif
+
 
 //
 // Fields.
@@ -67,6 +79,15 @@ static BOOL _LCLSystemLog_mirrorToStdErr = NO;
 
 // YES, if an ASL connection should be created for every thread.
 static BOOL _LCLSystemLog_useThreadLocalConnections = NO;
+
+// YES, if the file name should be shown.
+static BOOL _LCLSystemLog_showFileName = NO;
+
+// YES, if the line number should be shown.
+static BOOL _LCLSystemLog_showLineNumber = NO;
+
+// YES, if the function name should be shown.
+static BOOL _LCLSystemLog_showFunctionName = NO;
 
 // Log levels known by asl, indexed by ASL log level.
 static const char * const _LCLSystemLog_aslLogLevelASL[] = {
@@ -197,6 +218,15 @@ static aslclient _LCLSystemLog_createAslConnection() {
         // create the global ASL client connection
         _LCLSystemLog_globalAslClient = _LCLSystemLog_createAslConnection();
     }
+    
+    // get whether we should show file names
+    _LCLSystemLog_showFileName = (_LCLSystemLog_ShowFileNames);
+    
+    // get whether we should show line numbers
+    _LCLSystemLog_showLineNumber = (_LCLSystemLog_ShowLineNumbers);
+    
+    // get whether we should show function names
+    _LCLSystemLog_showFunctionName = (_LCLSystemLog_ShowFunctionNames);
 }
 
 
@@ -211,14 +241,24 @@ static void _LCLSystemLog_log(const char *identifier_c,
                               const char *path_c, uint32_t line,
                               const char *function_c,
                               const char *message_c) {
+    // get settings
+    const int show_file = _LCLSystemLog_showFileName;
+    const int show_line = _LCLSystemLog_showLineNumber;
+    const int show_function = _LCLSystemLog_showFunctionName;
+    
     // get file name from path
-    const char *file_c = (path_c != NULL) ? strrchr(path_c, '/') : NULL;
-    file_c = (file_c != NULL) ? (file_c + 1) : (path_c);
+    const char *file_c = NULL;
+    if (show_file) {
+        file_c = (path_c != NULL) ? strrchr(path_c, '/') : NULL;
+        file_c = (file_c != NULL) ? (file_c + 1) : (path_c);
+    }
     
     // get line
     char line_c[11];
-    snprintf(line_c, sizeof(line_c), "%u", line);
-    line_c[sizeof(line_c) - 1] = '\0';
+    if (show_line) {
+        snprintf(line_c, sizeof(line_c), "%u", line);
+        line_c[sizeof(line_c) - 1] = '\0';
+    }
     
     // get the ASL log level string, default is DEBUG, and the level0 value
     const char *level_asl_c = ASL_STRING_DEBUG;
@@ -255,9 +295,15 @@ static void _LCLSystemLog_log(const char *identifier_c,
     asl_set(message_asl, ASL_KEY_MSG, message_c);
     asl_set(message_asl, "Level0", level0_c);
     asl_set(message_asl, "Thread", tid_c);
-    asl_set(message_asl, "File", file_c);
-    asl_set(message_asl, "Line", line_c);
-    asl_set(message_asl, "Function", function_c);
+    if (show_file) {
+        asl_set(message_asl, "File", file_c);
+    }
+    if (show_line) {
+        asl_set(message_asl, "Line", line_c);
+    }
+    if (show_function) {
+        asl_set(message_asl, "Function", function_c);
+    }
     
     // send the system log message
     if (_LCLSystemLog_useThreadLocalConnections) {
@@ -428,6 +474,21 @@ static void _LCLSystemLog_log(const char *identifier_c,
 // Returns whether ASL connections are created for each thread.
 + (BOOL)usesPerThreadConnections {
     return _LCLSystemLog_useThreadLocalConnections;
+}
+
+// Returns whether file names are shown.
++ (BOOL)showsFileNames {
+    return _LCLSystemLog_showFileName;
+}
+
+// Returns whether line numbers are shown.
++ (BOOL)showsLineNumbers {
+    return _LCLSystemLog_showLineNumber;
+}
+
+// Returns whether function names are shown.
++ (BOOL)showsFunctionNames {
+    return _LCLSystemLog_showFunctionName;
 }
 
 

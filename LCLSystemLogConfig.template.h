@@ -47,3 +47,15 @@
 #define _LCLSystemLog_UsePerThreadConnections                                  \
     YES
 
+// Tell LCLSystemLog whether it should show file names.
+#define _LCLSystemLog_ShowFileNames                                            \
+    YES
+
+// Tell LCLSystemLog whether it should show line numbers.
+#define _LCLSystemLog_ShowLineNumbers                                          \
+    YES
+
+// Tell LCLSystemLog whether it should show function names.
+#define _LCLSystemLog_ShowFunctionNames                                        \
+    YES
+
