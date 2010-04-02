@@ -3,7 +3,7 @@
 // LCLSystemLog.h
 //
 //
-// Copyright (c) 2008-2009 Arne Harren <ah@0xc0.de>
+// Copyright (c) 2008-2010 Arne Harren <ah@0xc0.de>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,15 +24,19 @@
 // THE SOFTWARE.
 
 #define _LCLSYSTEMLOG_VERSION_MAJOR  1
-#define _LCLSYSTEMLOG_VERSION_MINOR  0
-#define _LCLSYSTEMLOG_VERSION_BUILD  2
+#define _LCLSYSTEMLOG_VERSION_MINOR  1
+#define _LCLSYSTEMLOG_VERSION_BUILD  1
+#define _LCLSYSTEMLOG_VERSION_SUFFIX ""
+
 
 //
 // LCLSystemLog
 //
-// LCLSystemLog is a LibComponentLogging logger implementation which sends
-// log messages to the Apple System Log facility (ASL). See asl, syslog, and
-// syslogd for details.
+// LCLSystemLog is a logging back-end implementation which sends log messages
+// to the Apple System Log facility (ASL) (see man pages of asl, syslog, and
+// syslogd for details). LCLSystemLog can be used as a logging back-end for
+// LibComponentLogging, but it is also useable as a standalone logging class
+// without the Core files of LibComponentLogging.
 //
 // With ASL, log messages are stored as structured messages in a data store.
 // The syslog utility or the Console application can be used to retrieve
@@ -43,7 +47,7 @@
 // retrieves all messages from the data store where the value associated with
 // the 'Sender' key (the identifier of an application) is equal to 'Example' and
 // where a value for the 'Level0' key exists. The key 'Level0' is used by
-// LCLSystemLog to store the LCL log level in addition to a mapped ASL priority
+// LCLSystemLog to store the log level in addition to a mapped ASL priority
 // level ('Level' key). All retrieved messages will be printed by using the UTC
 // time format and the display format specified via -F. Example output:
 //
@@ -60,32 +64,125 @@
 //
 // can be used to tell syslogd to store messages up to priority level 'Debug'.
 //
+// Alternatively, LCLSystemLog can be configured to use only ASL priority levels
+// up to a specific last level, e.g. 'Notice'. All log messages with a higher
+// level will be mapped to the configured last level, e.g. 'Debug' messages will
+// be logged with the ASL level 'Notice' while the 'Level0' field will still
+// contain the level information 'Debug'.
 //
-// LCLSystemLog is configured via the following define which should be specified
-// in lcl_config_logger.h:
+//
+// LCLSystemLog is configured via the following #defines in LCLSystemLogConfig.h
+// (see #import below):
 //
 // - Mirror log messages to stderr? (type BOOL)
 //   #define _LCLSystemLog_MirrorMessagesToStdErr <definition>
 //
+// - Create ASL connections for each thread? (type BOOL)
+//   #define _LCLSystemLog_UsePerThreadConnections <definition>
 //
-// Note: When using LCLSystemLog, please use a 'Reverse ICANN' naming scheme
-//       for log component headers as suggested by the ASL documentation.
+// - Show file names in the log messages? (type BOOL)
+//   #define _LCLSystemLog_ShowFileNames <definition>
+//
+// - Show line numbers in the log messages? (type BOOL)
+//   #define _LCLSystemLog_ShowLineNumbers <definition>
+//
+// - Show function names in the log messages? (type BOOL)
+//   #define _LCLSystemLog_ShowFunctionNames <definition>
+//
+// - The last ASL log level to use, e.g. ASL_LEVEL_NOTICE. (type uint32_t)
+//   #define _LCLSystemLog_LastASLLogLevelToUse <definition>
+//
+//
+// When using LCLSystemLog as a back-end for LibComponentLogging, simply add an
+//   #import "LCLSystemLog.h"
+// statement to your lcl_config_logger.h file and use the LCLSystemLogConfig.h
+// file for detailed configuration of the LCLSystemLog class.
+//
+// Please use a 'Reverse ICANN' naming scheme for log component headers as
+// suggested by the ASL documentation.
 //
 
 
-//
-// LCLSystemLog class.
-//
+#import <Foundation/Foundation.h>
+#import "LCLSystemLogConfig.h"
 
 
 @interface LCLSystemLog : NSObject {
     
 }
 
+
+//
+// Logging methods.
+//
+
+
 // Writes the given log message to the system log.
-+ (void)writeComponent:(_lcl_component_t)component level:(_lcl_level_t)level
-                  path:(const char *)path line:(uint32_t)line
-               message:(NSString *)message, ... __attribute__((format(__NSString__, 5, 6)));
++ (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                  message:(NSString *)message;
+
+// Writes the given log message to the system log (format and va_list var args).
++ (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                   format:(NSString *)format args:(va_list)args;
+
+// Writes the given log message to the system log (format and ... var args).
++ (void)logWithIdentifier:(const char *)identifier level:(uint32_t)level
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                   format:(NSString *)format, ... __attribute__((format(__NSString__, 6, 7)));
+
+
+//
+// Logging methods with log level mappings for LibComponentLogging.
+//
+
+
+// Writes the given log message to the system log.
++ (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                  message:(NSString *)message;
+
+// Writes the given log message to the system log (format and va_list var args).
++ (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                   format:(NSString *)format args:(va_list)args;
+
+// Writes the given log message to the system log (format and ... var args).
++ (void)logWithIdentifier:(const char *)identifier lclLevel:(uint32_t)lclLevel
+                     path:(const char *)path line:(uint32_t)line
+                 function:(const char *)function
+                   format:(NSString *)format, ... __attribute__((format(__NSString__, 6, 7)));
+
+
+//
+// Configuration.
+//
+
+
+// Returns whether log messages are mirrored to stderr.
++ (BOOL)mirrorsToStdErr;
+
+// Returns whether ASL connections are created for each thread.
++ (BOOL)usesPerThreadConnections;
+
+// Returns whether file names are shown.
++ (BOOL)showsFileNames;
+
+// Returns whether line numbers are shown.
++ (BOOL)showsLineNumbers;
+
+// Returns whether function names are shown.
++ (BOOL)showsFunctionNames;
+
+// Returns the last ASL log level to use for logging.
++ (uint32_t)lastASLLogLevelToUse;
+
 
 @end
 
@@ -95,15 +192,18 @@
 //
 
 
-// Definition of _lcl_logger.
-#define _lcl_logger(log_component, log_level, log_format, ...) {               \
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];                \
-    [LCLSystemLog writeComponent:log_component                                 \
-                           level:log_level                                     \
-                            path:__FILE__                                      \
-                            line:__LINE__                                      \
-                         message:log_format,                                   \
-                              ## __VA_ARGS__];                                 \
-    [pool release];                                                            \
+// Define the _lcl_logger macro which integrates LCLSystemLog as a logging
+// back-end for LibComponentLogging and pass the header of a log component as
+// the identifier to LCLSystemLog's log method.
+#define _lcl_logger(_component, _level, _format, ...) {                        \
+    NSAutoreleasePool *_lcl_logger_pool = [[NSAutoreleasePool alloc] init];    \
+    [LCLSystemLog logWithIdentifier:_lcl_component_header[_component]          \
+                           lclLevel:_level                                     \
+                               path:__FILE__                                   \
+                               line:__LINE__                                   \
+                           function:__FUNCTION__                               \
+                             format:_format,                                   \
+                                 ## __VA_ARGS__];                              \
+    [_lcl_logger_pool release];                                                \
 }
 

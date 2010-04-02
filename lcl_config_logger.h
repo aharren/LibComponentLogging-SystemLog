@@ -3,7 +3,7 @@
 // lcl_config_logger.h
 //
 //
-// Copyright (c) 2008-2009 Arne Harren <ah@0xc0.de>
+// Copyright (c) 2008-2010 Arne Harren <ah@0xc0.de>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -24,10 +24,9 @@
 // THE SOFTWARE.
 
 
-// Use the LCLSystemLog logger.
+// Use LCLSystemLog as the LibComponentLogging logging back-end.
 #import "LCLSystemLog.h"
 
-// Tell LCLSystemLog whether it should mirror the log messages to stderr
-#define _LCLSystemLog_MirrorMessagesToStdErr                                   \
-    NO
+// The detailed configuration of the LCLSystemLog class is stored in the
+// LCLSystemLogConfig.h file which gets imported by LCLSystemLog.h.
 
