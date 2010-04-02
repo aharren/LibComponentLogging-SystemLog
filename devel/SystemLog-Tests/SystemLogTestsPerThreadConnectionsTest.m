@@ -28,6 +28,22 @@
 #import "ASLDataStore.h"
 #include <mach/mach_init.h>
 #import <unistd.h>
+#import <asl.h>
+
+
+@interface Connection : NSObject {
+    
+@public
+    aslclient client_asl;
+    
+}
+
+@end
+
+
+@implementation Connection
+
+@end
 
 
 @interface SystemLogTestsPerThreadConnectionsTest : SenTestCase {
@@ -57,20 +73,40 @@
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     
     // per-thread ASL connection should not exist
-    NSString *connection = nil;
+    Connection *connection = nil;
     connection = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     STAssertNil(connection, nil);
     
     // log on main thread
-    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-ident" level:3 path:"path/file" line:1 function:"f" message:@"message"];
+    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-ident" level:3 path:"path/file" line:1 function:"f" message:@"message 1"];
     
     // per-thread ASL connection should exist
     connection = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     STAssertNotNil(connection, nil);
+    STAssertTrue(connection->client_asl != NULL, nil);
+    
+    // re-configure the per-thread ASL connection to make sure it is really used
+    STAssertTrue(connection->client_asl != NULL, nil);
+    asl_set_filter(connection->client_asl, ASL_FILTER_MASK_UPTO(ASL_LEVEL_CRIT));
+    
+    // log again on main thread, this should not be logged
+    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-ident" level:3 path:"path/file" line:1 function:"f" message:@"message 2"];
+    
+    // per-thread ASL connection should be the same
+    NSObject *connection2 = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
+    STAssertNotNil(connection2, nil);
+    STAssertEquals((NSObject *)connection, (NSObject *)connection2, nil);
+    
+    // re-configure the per-thread ASL connection once more
+    STAssertTrue(connection->client_asl != NULL, nil);
+    asl_set_filter(connection->client_asl, ASL_FILTER_MASK_UPTO(ASL_LEVEL_DEBUG));
+    
+    // log again on main thread
+    [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-ident" level:4 path:"path/file" line:1 function:"f" message:@"message 3"];
     
     // check messages
     ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
-    STAssertEquals([messages count], (NSUInteger)1, nil);
+    STAssertEquals([messages count], (NSUInteger)2, nil);
     
     ASLMessage *message1 = [messages messageAtIndex:0];
     STAssertEqualObjects([message1 valueForKey:@"Facility"], @"PerThreadConnectionsTest-ident", nil);
@@ -80,7 +116,17 @@
     STAssertEqualObjects([message1 valueForKey:@"File"], @"file", nil);
     STAssertEqualObjects([message1 valueForKey:@"Line"], @"1", nil);
     STAssertEqualObjects([message1 valueForKey:@"Function"], @"f", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Message"], @"message", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Message"], @"message 1", nil);
+    
+    ASLMessage *message2 = [messages messageAtIndex:1];
+    STAssertEqualObjects([message2 valueForKey:@"Facility"], @"PerThreadConnectionsTest-ident", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Thread"], thread, nil);
+    STAssertEqualObjects([message2 valueForKey:@"Level"], @"4", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Level0"], @"W", nil);
+    STAssertEqualObjects([message2 valueForKey:@"File"], @"file", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Line"], @"1", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Function"], @"f", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Message"], @"message 3", nil);
 }
 
 static NSCondition *thread1Finished = nil;
@@ -132,7 +178,7 @@ static NSObject *thread2ConnectionAtEnd = nil;
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     
     // per-thread ASL connection should not exist
-    NSString *connection = nil;
+    NSObject *connection = nil;
     connection = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     STAssertNil(connection, nil);
     

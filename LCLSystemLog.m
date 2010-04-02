@@ -349,6 +349,9 @@ static void _LCLSystemLog_log(const char *identifier_c,
                                      forKey:as_NSString(LCLSystemLogConnection)];
                 [connection release];
             }
+        } else {
+            // use existing connection
+            client_asl = connection->client_asl;
         }
 #       undef  as_NSString
         asl_send(client_asl, message_asl);
