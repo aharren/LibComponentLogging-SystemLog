@@ -43,6 +43,12 @@ to the data store. The command line
 
 can be used to tell syslogd to store messages up to priority level 'Debug'.
 
+Alternatively, LCLSystemLog can be configured to use only ASL priority levels
+up to a specific last level, e.g. 'Notice'. All log messages with a higher level
+will be mapped to the configured last level, e.g. 'Debug' messages will be
+logged with the ASL level 'Notice' while the 'Level0' field will still contain
+the level information 'Debug'.
+
 
 ## Usage
 
