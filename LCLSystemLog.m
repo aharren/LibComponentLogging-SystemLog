@@ -150,22 +150,36 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 
 @interface LCLSystemLogConnection : NSObject {
     
-@public
-    aslclient client_asl;
+@private
+    aslclient aslClient;
     
 }
+
+- (aslclient)aslClient;
+- (void)setAslClient:(aslclient)client;
 
 @end
 
 @implementation LCLSystemLogConnection
 
+- (aslclient)aslClient {
+    return aslClient;
+}
+
+- (void)setAslClient:(aslclient)client {
+    if (aslClient) {
+        [LCLSystemLogConnection doesNotRecognizeSelector:_cmd];
+    }
+    aslClient = client;
+}
+
 - (void)dealloc {
-    asl_close(client_asl);
+    asl_close(aslClient);
     [super dealloc];
 }
 
 - (void)finalize {
-    asl_close(client_asl);
+    asl_close(aslClient);
     [super finalize];
 }
 
@@ -344,14 +358,14 @@ static void _LCLSystemLog_log(const char *identifier_c,
             connection = [[LCLSystemLogConnection alloc] init];
             if (connection) {
                 client_asl = _LCLSystemLog_createAslConnection();
-                connection->client_asl = client_asl;
+                [connection setAslClient:client_asl];
                 [threadDictionary setObject:connection
                                      forKey:as_NSString(LCLSystemLogConnection)];
                 [connection release];
             }
         } else {
             // use existing connection
-            client_asl = connection->client_asl;
+            client_asl = [connection aslClient];
         }
 #       undef  as_NSString
         asl_send(client_asl, message_asl);

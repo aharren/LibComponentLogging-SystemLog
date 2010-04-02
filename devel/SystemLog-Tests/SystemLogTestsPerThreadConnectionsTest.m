@@ -31,17 +31,12 @@
 #import <asl.h>
 
 
-@interface Connection : NSObject {
-    
-@public
-    aslclient client_asl;
+@interface LCLSystemLogConnection : NSObject {
     
 }
 
-@end
-
-
-@implementation Connection
+- (aslclient)aslClient;
+- (void)setAslClient:(aslclient)client;
 
 @end
 
@@ -73,7 +68,7 @@
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     
     // per-thread ASL connection should not exist
-    Connection *connection = nil;
+    LCLSystemLogConnection *connection = nil;
     connection = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     STAssertNil(connection, nil);
     
@@ -83,11 +78,11 @@
     // per-thread ASL connection should exist
     connection = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
     STAssertNotNil(connection, nil);
-    STAssertTrue(connection->client_asl != NULL, nil);
+    STAssertTrue([connection aslClient] != NULL, nil);
     
     // re-configure the per-thread ASL connection to make sure it is really used
-    STAssertTrue(connection->client_asl != NULL, nil);
-    asl_set_filter(connection->client_asl, ASL_FILTER_MASK_UPTO(ASL_LEVEL_CRIT));
+    STAssertTrue([connection aslClient] != NULL, nil);
+    asl_set_filter([connection aslClient], ASL_FILTER_MASK_UPTO(ASL_LEVEL_CRIT));
     
     // log again on main thread, this should not be logged
     [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-ident" level:3 path:"path/file" line:1 function:"f" message:@"message 2"];
@@ -98,8 +93,8 @@
     STAssertEquals((NSObject *)connection, (NSObject *)connection2, nil);
     
     // re-configure the per-thread ASL connection once more
-    STAssertTrue(connection->client_asl != NULL, nil);
-    asl_set_filter(connection->client_asl, ASL_FILTER_MASK_UPTO(ASL_LEVEL_DEBUG));
+    STAssertTrue([connection aslClient] != NULL, nil);
+    asl_set_filter([connection aslClient], ASL_FILTER_MASK_UPTO(ASL_LEVEL_DEBUG));
     
     // log again on main thread
     [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-ident" level:4 path:"path/file" line:1 function:"f" message:@"message 3"];
@@ -265,6 +260,25 @@ static NSObject *thread2ConnectionAtEnd = nil;
     STAssertTrue(messageMainSeen, nil);
     STAssertTrue(messageThread1Seen, nil);
     STAssertTrue(messageThread2Seen, nil);
+}
+
+- (void)testPerThreadConnectionsConnectionHolderBehavior {
+    LCLSystemLogConnection *connection = [[LCLSystemLogConnection alloc] init];
+    
+    // set client
+    [connection setAslClient:(aslclient)1];
+    
+    @try {
+        // set client again
+        [connection setAslClient:(aslclient)2];
+        STFail(@"[setAslClient] should throw NSInvalidArgumentException");
+        
+    } @catch (NSException *exception) {
+        STAssertEquals([exception name], NSInvalidArgumentException, nil);
+        
+    } @catch (...) {
+        STFail(@"[setAslClient] should throw NSInvalidArgumentException");
+    }
 }
 
 @end
