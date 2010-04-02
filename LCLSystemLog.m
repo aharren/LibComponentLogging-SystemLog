@@ -62,6 +62,10 @@
 #error  '_LCLSystemLog_ShowFunctionNames' must be defined in LCLSystemLogConfig.h
 #endif
 
+#ifndef _LCLSystemLog_LastASLLogLevelToUse
+#error  '_LCLSystemLog_LastASLLogLevelToUse' must be defined in LCLSystemLogConfig.h
+#endif
+
 
 //
 // Fields.
@@ -89,6 +93,9 @@ static BOOL _LCLSystemLog_showLineNumber = NO;
 // YES, if the function name should be shown.
 static BOOL _LCLSystemLog_showFunctionName = NO;
 
+// The last ASL log level to use, e.g. ASL_LEVEL_NOTICE.
+static uint32_t _LCLSystemLog_lastUseableASLLogLevel = ASL_LEVEL_DEBUG;
+
 // Log levels known by asl, indexed by ASL log level.
 static const char * const _LCLSystemLog_aslLogLevelASL[] = {
     ASL_STRING_EMERG,   // Emergency
@@ -114,14 +121,14 @@ static const char * const _LCLSystemLog_level0ASL[] = {
 };
 
 // Log levels known by asl, indexed by LCL log level.
-static const char * const _LCLSystemLog_aslLogLevelLCL[] = {
-    ASL_STRING_DEBUG,   // Off
-    ASL_STRING_CRIT,    // Critical
-    ASL_STRING_ERR,     // Error
-    ASL_STRING_WARNING, // Warning
-    ASL_STRING_NOTICE,  // Info
-    ASL_STRING_DEBUG,   // Debug
-    ASL_STRING_DEBUG    // Trace
+static uint32_t const _LCLSystemLog_aslLogLevelLCL[] = {
+    ASL_LEVEL_DEBUG,    // Off
+    ASL_LEVEL_CRIT,     // Critical
+    ASL_LEVEL_ERR,      // Error
+    ASL_LEVEL_WARNING,  // Warning
+    ASL_LEVEL_NOTICE,   // Info
+    ASL_LEVEL_DEBUG,    // Debug
+    ASL_LEVEL_DEBUG     // Trace
 };
 
 // Level0 headers, indexed by LCL log level.
@@ -227,6 +234,12 @@ static aslclient _LCLSystemLog_createAslConnection() {
     
     // get whether we should show function names
     _LCLSystemLog_showFunctionName = (_LCLSystemLog_ShowFunctionNames);
+    
+    // get the last ASL log level to use
+    _LCLSystemLog_lastUseableASLLogLevel = (_LCLSystemLog_LastASLLogLevelToUse);
+    if (_LCLSystemLog_lastUseableASLLogLevel > (uint32_t)ASL_LEVEL_DEBUG) {
+        _LCLSystemLog_lastUseableASLLogLevel = (uint32_t)ASL_LEVEL_DEBUG;
+    }
 }
 
 
@@ -245,6 +258,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     const int show_file = _LCLSystemLog_showFileName;
     const int show_line = _LCLSystemLog_showLineNumber;
     const int show_function = _LCLSystemLog_showFunctionName;
+    const uint32_t last_asl_level = _LCLSystemLog_lastUseableASLLogLevel;
     
     // get file name from path
     const char *file_c = NULL;
@@ -260,23 +274,32 @@ static void _LCLSystemLog_log(const char *identifier_c,
         line_c[sizeof(line_c) - 1] = '\0';
     }
     
-    // get the ASL log level string, default is DEBUG, and the level0 value
-    const char *level_asl_c = ASL_STRING_DEBUG;
+    // get the ASL log level, default is DEBUG, and the level0 value
+    uint32_t level_asl = ASL_LEVEL_DEBUG;
     const char *level0_c = NULL;
     if (level_is_asl_level) {
         if (level < sizeof(_LCLSystemLog_aslLogLevelASL)/sizeof(const char *)) {
             // a known ASL level
-            level_asl_c = _LCLSystemLog_aslLogLevelASL[level];
+            level_asl = level;
             level0_c = _LCLSystemLog_level0ASL[level];
         }
     } else {
         // map the LCL log level to a suitable ASL log level, default is DEBUG
-        if (level < sizeof(_LCLSystemLog_aslLogLevelLCL)/sizeof(const char *)) {
+        if (level < sizeof(_LCLSystemLog_aslLogLevelLCL)/sizeof(uint32_t)) {
             // a known LCL level
-            level_asl_c = _LCLSystemLog_aslLogLevelLCL[level];
+            level_asl = _LCLSystemLog_aslLogLevelLCL[level];
             level0_c = _LCLSystemLog_level0LCL[level];
         }
     }
+    
+    // map the ASL log level to the last useable log level
+    if (level_asl > last_asl_level) {
+        level_asl = last_asl_level;
+    }
+    // get the ASL log level string
+    const char *level_asl_c = _LCLSystemLog_aslLogLevelASL[level_asl];
+    
+    // create the level0 string if not already set
     char level0_ca[11];
     if (level0_c == NULL) {
         // unknown level, use the level number as level0
@@ -489,6 +512,11 @@ static void _LCLSystemLog_log(const char *identifier_c,
 // Returns whether function names are shown.
 + (BOOL)showsFunctionNames {
     return _LCLSystemLog_showFunctionName;
+}
+
+// Returns the last ASL log level to use for logging.
++ (uint32_t)lastASLLogLevelToUse {
+    return _LCLSystemLog_lastUseableASLLogLevel;
 }
 
 

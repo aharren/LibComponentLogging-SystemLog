@@ -24,6 +24,7 @@
 // THE SOFTWARE.
 
 #import "SystemLogTestsLoggerConfiguration.h"
+#include <asl.h>
 
 
 static BOOL SystemLogTestsLoggerConfiguration_mirrorMessagesToStdErr = NO;
@@ -31,6 +32,7 @@ static BOOL SystemLogTestsLoggerConfiguration_usePerThreadConnections = NO;
 static BOOL SystemLogTestsLoggerConfiguration_showFileNames = NO;
 static BOOL SystemLogTestsLoggerConfiguration_showLineNumbers = NO;
 static BOOL SystemLogTestsLoggerConfiguration_showFunctionNames = NO;
+static uint32_t SystemLogTestsLoggerConfiguration_lastASLLogLevelToUse = 0;
 
 
 @implementation SystemLogTestsLoggerConfiguration
@@ -41,6 +43,7 @@ static BOOL SystemLogTestsLoggerConfiguration_showFunctionNames = NO;
     SystemLogTestsLoggerConfiguration_showFileNames = NO;
     SystemLogTestsLoggerConfiguration_showLineNumbers = NO;
     SystemLogTestsLoggerConfiguration_showFunctionNames = NO;
+    SystemLogTestsLoggerConfiguration_lastASLLogLevelToUse = (uint32_t)ASL_LEVEL_DEBUG;
 }
 
 + (BOOL)mirrorMessagesToStdErr {
@@ -81,6 +84,14 @@ static BOOL SystemLogTestsLoggerConfiguration_showFunctionNames = NO;
 
 + (void)setShowFunctionNames:(BOOL)show {
     SystemLogTestsLoggerConfiguration_showFunctionNames = show;
+}
+
++ (uint32_t)lastASLLogLevelToUse {
+    return SystemLogTestsLoggerConfiguration_lastASLLogLevelToUse;
+}
+
++ (void)setLastASLLogLevelToUse:(uint32_t)level {
+    SystemLogTestsLoggerConfiguration_lastASLLogLevelToUse = level;
 }
 
 @end

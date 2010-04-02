@@ -27,6 +27,7 @@
 #import <SenTestingKit/SenTestingKit.h>
 #import "ASLDataStore.h"
 #include <mach/mach_init.h>
+#include <asl.h>
 
 
 @interface SystemLogTestsLCLLogFormatTests : SenTestCase {
@@ -39,15 +40,16 @@
 @implementation SystemLogTestsLCLLogFormatTests
 
 - (void)setUp {
+}
+
+- (void)testLogFormatLogLevels {
     [SystemLogTestsLoggerConfiguration initialize];
     [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
     [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
     [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
     [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
-}
-
-- (void)testLogFormatLogLevels {
+    
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
     
     [LCLSystemLog logWithIdentifier:"i1" lclLevel:0 path:"path/file" line:0 function:"f" format:@"message"];
@@ -87,6 +89,94 @@
     STAssertEqualObjects([message4 valueForKey:@"Level0"], @"I", nil);
 }
 
+- (void)testLogFormatLogLevelsNoticeAsLastLevel {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
+    [SystemLogTestsLoggerConfiguration setLastASLLogLevelToUse:(uint32_t)ASL_LEVEL_NOTICE];
+    [LCLSystemLog initialize];
+    
+    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    
+    [LCLSystemLog logWithIdentifier:"i1" lclLevel:0 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i2" lclLevel:1 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i3" lclLevel:2 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i4" lclLevel:3 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i5" lclLevel:4 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i6" lclLevel:5 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i7" lclLevel:6 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i8" lclLevel:7 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"i9" lclLevel:8 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"ia" lclLevel:9 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"ib" lclLevel:18 path:"path/file" line:0 function:"f" format:@"message"];
+    [LCLSystemLog logWithIdentifier:"ic" lclLevel:(uint32_t)-1 path:"path/file" line:0 function:"f" format:@"message"];
+    
+    ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
+    STAssertEquals([messages count], (NSUInteger)12, nil);
+    
+    ASLMessage *message1 = [messages messageAtIndex:0];
+    STAssertEqualObjects([message1 valueForKey:@"Facility"], @"i1", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Level0"], @"-", nil);
+    
+    ASLMessage *message2 = [messages messageAtIndex:1];
+    STAssertEqualObjects([message2 valueForKey:@"Facility"], @"i2", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Level"], @"2", nil);
+    STAssertEqualObjects([message2 valueForKey:@"Level0"], @"C", nil);
+    
+    ASLMessage *message3 = [messages messageAtIndex:2];
+    STAssertEqualObjects([message3 valueForKey:@"Facility"], @"i3", nil);
+    STAssertEqualObjects([message3 valueForKey:@"Level"], @"3", nil);
+    STAssertEqualObjects([message3 valueForKey:@"Level0"], @"E", nil);
+    
+    ASLMessage *message4 = [messages messageAtIndex:3];
+    STAssertEqualObjects([message4 valueForKey:@"Facility"], @"i4", nil);
+    STAssertEqualObjects([message4 valueForKey:@"Level"], @"4", nil);
+    STAssertEqualObjects([message4 valueForKey:@"Level0"], @"W", nil);
+    
+    ASLMessage *message5 = [messages messageAtIndex:4];
+    STAssertEqualObjects([message5 valueForKey:@"Facility"], @"i5", nil);
+    STAssertEqualObjects([message5 valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([message5 valueForKey:@"Level0"], @"I", nil);
+    
+    ASLMessage *message6 = [messages messageAtIndex:5];
+    STAssertEqualObjects([message6 valueForKey:@"Facility"], @"i6", nil);
+    STAssertEqualObjects([message6 valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([message6 valueForKey:@"Level0"], @"D", nil);
+    
+    ASLMessage *message7 = [messages messageAtIndex:6];
+    STAssertEqualObjects([message7 valueForKey:@"Facility"], @"i7", nil);
+    STAssertEqualObjects([message7 valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([message7 valueForKey:@"Level0"], @"T", nil);
+    
+    ASLMessage *message8 = [messages messageAtIndex:7];
+    STAssertEqualObjects([message8 valueForKey:@"Facility"], @"i8", nil);
+    STAssertEqualObjects([message8 valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([message8 valueForKey:@"Level0"], @"7", nil);
+    
+    ASLMessage *message9 = [messages messageAtIndex:8];
+    STAssertEqualObjects([message9 valueForKey:@"Facility"], @"i9", nil);
+    STAssertEqualObjects([message9 valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([message9 valueForKey:@"Level0"], @"8", nil);
+    
+    ASLMessage *messagea = [messages messageAtIndex:9];
+    STAssertEqualObjects([messagea valueForKey:@"Facility"], @"ia", nil);
+    STAssertEqualObjects([messagea valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([messagea valueForKey:@"Level0"], @"9", nil);
+    
+    ASLMessage *messageb = [messages messageAtIndex:10];
+    STAssertEqualObjects([messageb valueForKey:@"Facility"], @"ib", nil);
+    STAssertEqualObjects([messageb valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([messageb valueForKey:@"Level0"], @"18", nil);
+    
+    ASLMessage *messagec = [messages messageAtIndex:11];
+    STAssertEqualObjects([messagec valueForKey:@"Facility"], @"ic", nil);
+    STAssertEqualObjects([messagec valueForKey:@"Level"], @"5", nil);
+    STAssertEqualObjects([messagec valueForKey:@"Level0"], @"4294967295", nil);
+}
+
 - (void)loggingWithVaListVarArgsLogMethodHelper:(NSString *)format, ... {
     va_list args;
     va_start(args, format);
@@ -95,6 +185,13 @@
 }
 
 - (void)testLoggingWithVaListVarArgsLogMethod {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
+    [LCLSystemLog initialize];
+    
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
@@ -116,6 +213,13 @@
 }
 
 - (void)testLoggingWithMessage {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setUsePerThreadConnections:NO];
+    [SystemLogTestsLoggerConfiguration setShowFileNames:YES];
+    [SystemLogTestsLoggerConfiguration setShowLineNumbers:YES];
+    [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
+    [LCLSystemLog initialize];
+    
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
     ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];

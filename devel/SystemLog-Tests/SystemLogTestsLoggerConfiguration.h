@@ -45,5 +45,8 @@
 + (BOOL)showFunctionNames;
 + (void)setShowFunctionNames:(BOOL)show;
 
++ (uint32_t)lastASLLogLevelToUse;
++ (void)setLastASLLogLevelToUse:(uint32_t)level;
+
 @end
 

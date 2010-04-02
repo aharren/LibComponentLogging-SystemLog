@@ -51,6 +51,10 @@
 #define _LCLSystemLog_ShowFunctionNames /* (BOOL) */                           \
     [SystemLogTestsLoggerConfiguration showFunctionNames]
 
+// Tell LCLSystemLog the last ASL log level to use, e.g. ASL_LEVEL_NOTICE.
+#define _LCLSystemLog_LastASLLogLevelToUse /* (uint32_t) */                    \
+    [SystemLogTestsLoggerConfiguration lastASLLogLevelToUse]
+
 // SystemLogTestsLoggerConfiguration holds the configuration data.
 #import "SystemLogTestsLoggerConfiguration.h"
 

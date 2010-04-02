@@ -25,6 +25,7 @@
 
 #import "lcl.h"
 #import <SenTestingKit/SenTestingKit.h>
+#import <asl.h>
 
 
 @interface SystemLogTestsConfigurationTests : SenTestCase {
@@ -97,6 +98,23 @@
     [SystemLogTestsLoggerConfiguration setShowFunctionNames:NO];
     [LCLSystemLog initialize];
     STAssertEquals((int)[LCLSystemLog showsFunctionNames], (int)NO, nil);
+}
+
+- (void)testLastASLLogLevelToUse {
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setLastASLLogLevelToUse:(uint32_t)3];
+    [LCLSystemLog initialize];
+    STAssertEquals([LCLSystemLog lastASLLogLevelToUse], (uint32_t)3, nil);
+    
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setLastASLLogLevelToUse:(uint32_t)ASL_LEVEL_DEBUG];
+    [LCLSystemLog initialize];
+    STAssertEquals([LCLSystemLog lastASLLogLevelToUse], (uint32_t)ASL_LEVEL_DEBUG, nil);
+    
+    [SystemLogTestsLoggerConfiguration initialize];
+    [SystemLogTestsLoggerConfiguration setLastASLLogLevelToUse:(uint32_t)ASL_LEVEL_DEBUG+1];
+    [LCLSystemLog initialize];
+    STAssertEquals([LCLSystemLog lastASLLogLevelToUse], (uint32_t)ASL_LEVEL_DEBUG, nil);
 }
 
 @end

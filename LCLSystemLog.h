@@ -83,6 +83,9 @@
 // - Show function names in the log messages? (type BOOL)
 //   #define _LCLSystemLog_ShowFunctionNames <definition>
 //
+// - The last ASL log level to use, e.g. ASL_LEVEL_NOTICE. (type uint32_t)
+//   #define _LCLSystemLog_LastASLLogLevelToUse <definition>
+//
 //
 // When using LCLSystemLog as a back-end for LibComponentLogging, simply add an
 //   #import "LCLSystemLog.h"
@@ -170,6 +173,9 @@
 
 // Returns whether function names are shown.
 + (BOOL)showsFunctionNames;
+
+// Returns the last ASL log level to use for logging.
++ (uint32_t)lastASLLogLevelToUse;
 
 
 @end

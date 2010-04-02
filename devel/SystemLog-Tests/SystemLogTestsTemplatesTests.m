@@ -67,5 +67,10 @@
 - (void)testShowsFunctionNames {
     STAssertEquals((int)[LCLSystemLog showsFunctionNames], (int)YES, nil);
 }
+
+- (void)testLastASLLogLevelToUse {
+    STAssertEquals((uint32_t)[LCLSystemLog lastASLLogLevelToUse], (uint32_t)7/*ASL_LEVEL_DEBUG*/, nil);
+}
+
 @end
 
