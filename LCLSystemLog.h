@@ -25,7 +25,7 @@
 
 #define _LCLSYSTEMLOG_VERSION_MAJOR  1
 #define _LCLSYSTEMLOG_VERSION_MINOR  1
-#define _LCLSYSTEMLOG_VERSION_BUILD  1
+#define _LCLSYSTEMLOG_VERSION_BUILD  2
 #define _LCLSYSTEMLOG_VERSION_SUFFIX ""
 
 
@@ -201,7 +201,7 @@
                            lclLevel:_level                                     \
                                path:__FILE__                                   \
                                line:__LINE__                                   \
-                           function:__FUNCTION__                               \
+                           function:__PRETTY_FUNCTION__                        \
                              format:_format,                                   \
                                  ## __VA_ARGS__];                              \
     [_lcl_logger_pool release];                                                \
