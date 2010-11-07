@@ -1388,6 +1388,7 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = "SystemLog-Tests/SystemLog-Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1397,7 +1398,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "SystemLog-Tests-iPhoneOS-3.0-Device";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.1;
 				WRAPPER_EXTENSION = octest;
 			};
 			name = Debug;
@@ -1433,6 +1434,7 @@
 				GCC_WARN_UNUSED_PARAMETER = YES;
 				INFOPLIST_FILE = "SystemLog-Tests/SystemLog-Tests-Info.plist";
 				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-framework",
@@ -1442,7 +1444,7 @@
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = "SystemLog-Tests-iPhoneOS-3.0-Device";
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.1;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
