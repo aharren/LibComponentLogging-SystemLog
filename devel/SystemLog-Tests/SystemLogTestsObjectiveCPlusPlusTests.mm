@@ -81,7 +81,7 @@ void SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(int i, NSString 
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"SystemLogTestsObjectiveCPlusPlusTests.mm", nil);
     STAssertEqualObjects([message1 valueForKey:@"Line"], @"41", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Function"], @"static void SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(int, NSString*)", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Function"], @"static void SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(int, NSString *)", nil);
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"message cstring 123 NSString *", nil);
 }
 
