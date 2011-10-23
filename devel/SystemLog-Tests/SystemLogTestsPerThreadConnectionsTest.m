@@ -37,6 +37,7 @@
 
 - (aslclient)aslClient;
 - (void)setAslClient:(aslclient)client;
+- (void)unsetAslClientUnsafe;
 
 @end
 
@@ -65,7 +66,10 @@
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     // per-thread ASL connection should not exist
     LCLSystemLogConnection *connection = nil;
@@ -130,12 +134,16 @@ static NSObject *thread1ConnectionAtEnd = nil;
 
 - (void)thread1Main {
     thread1ConnectionAtStart = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
+#   if !__has_feature(objc_arc)
     [thread1ConnectionAtStart retain];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-thread1" level:3 path:"path/file1" line:1 function:"f1" message:@"message: thread1"];
     
     thread1ConnectionAtEnd = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
+#   if !__has_feature(objc_arc)
     [thread1ConnectionAtEnd retain];
+#   endif
     
     [thread1Finished lock];
     [thread1Finished signal];
@@ -148,12 +156,16 @@ static NSObject *thread2ConnectionAtEnd = nil;
 
 - (void)thread2Main {
     thread2ConnectionAtStart = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
+#   if !__has_feature(objc_arc)
     [thread2ConnectionAtStart retain];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"PerThreadConnectionsTest-thread2" level:3 path:"path/file2" line:2 function:"f2" message:@"message: thread2"];
     
     thread2ConnectionAtEnd = [[[NSThread currentThread] threadDictionary] objectForKey:@"SystemLogTestsLCLSystemLogConnection"];
+#   if !__has_feature(objc_arc)
     [thread2ConnectionAtEnd retain];
+#   endif
     
     [thread2Finished lock];
     [thread2Finished signal];
@@ -170,7 +182,10 @@ static NSObject *thread2ConnectionAtEnd = nil;
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     // per-thread ASL connection should not exist
     NSObject *connection = nil;
@@ -208,10 +223,12 @@ static NSObject *thread2ConnectionAtEnd = nil;
     
     // per-thread ASL connection should have been destroyed
     sleep(2);
+#   if !__has_feature(objc_arc)
     STAssertEquals([thread1ConnectionAtEnd retainCount], (NSUInteger)1, nil);
     [thread1ConnectionAtEnd release];
     STAssertEquals([thread2ConnectionAtEnd retainCount], (NSUInteger)1, nil);
     [thread2ConnectionAtEnd release];
+#   endif
     
     // check messages
     ASLMessageArray *messages = [ASLDataStore messagesSinceReferenceMark:mark];
@@ -279,6 +296,13 @@ static NSObject *thread2ConnectionAtEnd = nil;
     } @catch (...) {
         STFail(@"[setAslClient] should throw NSInvalidArgumentException");
     }
+
+    // unset client to avoid crashes on release
+    [connection unsetAslClientUnsafe];
+
+#   if !__has_feature(objc_arc)
+    [connection release];
+#   endif
 }
 
 @end

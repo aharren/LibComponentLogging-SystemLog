@@ -143,6 +143,20 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 };
 
 
+// ARC/non-ARC autorelease pool
+#if __has_feature(objc_arc)
+#define _LCLSystemLog_autoreleasepool_begin                                    \
+    @autoreleasepool {
+#define _LCLSystemLog_autoreleasepool_end                                      \
+    }
+#else
+#define _LCLSystemLog_autoreleasepool_begin                                    \
+    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+#define _LCLSystemLog_autoreleasepool_end                                      \
+    [pool release];
+#endif
+
+
 //
 // Holder for a per-thread connection.
 //
@@ -157,6 +171,7 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 
 - (aslclient)aslClient;
 - (void)setAslClient:(aslclient)client;
+- (void)unsetAslClientUnsafe;
 
 @end
 
@@ -173,9 +188,15 @@ static const char * const _LCLSystemLog_level0LCL[] = {
     aslClient = client;
 }
 
+- (void)unsetAslClientUnsafe {
+    aslClient = NULL;
+}
+
 - (void)dealloc {
     asl_close(aslClient);
+#   if !__has_feature(objc_arc)
     [super dealloc];
+#   endif
 }
 
 - (void)finalize {
@@ -361,7 +382,9 @@ static void _LCLSystemLog_log(const char *identifier_c,
                 [connection setAslClient:client_asl];
                 [threadDictionary setObject:connection
                                      forKey:as_NSString(LCLSystemLogConnection)];
+#               if !__has_feature(objc_arc)
                 [connection release];
+#               endif
             }
         } else {
             // use existing connection
@@ -387,7 +410,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
                   message:(NSString *)message {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    _LCLSystemLog_autoreleasepool_begin
     
     // create log message
     const char *message_c = [message UTF8String];
@@ -396,7 +419,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_log(identifier_c, level, YES, path_c, line, function_c, message_c);
     
     // release local objects
-    [pool release];
+    _LCLSystemLog_autoreleasepool_end
 }
 
 // Writes the given log message to the system log (format and va_list var args).
@@ -404,17 +427,20 @@ static void _LCLSystemLog_log(const char *identifier_c,
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
                    format:(NSString *)format args:(va_list)args {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    _LCLSystemLog_autoreleasepool_begin
     
     // create log message
-    NSString *message = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   if !__has_feature(objc_arc)
+    [message autorelease];
+#   endif
     const char *message_c = [message UTF8String];
     
     // write log message
     _LCLSystemLog_log(identifier_c, level, YES, path_c, line, function_c, message_c);
     
     // release local objects
-    [pool release];
+    _LCLSystemLog_autoreleasepool_end
 }
 
 // Writes the given log message to the system log (format and ... var args).
@@ -422,12 +448,15 @@ static void _LCLSystemLog_log(const char *identifier_c,
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
                    format:(NSString *)format, ... {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    _LCLSystemLog_autoreleasepool_begin
     
     // create log message
     va_list args;
     va_start(args, format);
-    NSString *message = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   if !__has_feature(objc_arc)
+    [message autorelease];
+#   endif
     va_end(args);
     const char *message_c = [message UTF8String];
     
@@ -435,7 +464,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_log(identifier_c, level, YES, path_c, line, function_c, message_c);
     
     // release local objects
-    [pool release];
+    _LCLSystemLog_autoreleasepool_end
 }
 
 
@@ -449,7 +478,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
                   message:(NSString *)message {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    _LCLSystemLog_autoreleasepool_begin
     
     // create log message
     const char *message_c = [message UTF8String];
@@ -458,7 +487,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_log(identifier_c, lclLevel, NO, path_c, line, function_c, message_c);
     
     // release local objects
-    [pool release];
+    _LCLSystemLog_autoreleasepool_end
 }
 
 // Writes the given log message to the system log (format and va_list var args).
@@ -466,17 +495,20 @@ static void _LCLSystemLog_log(const char *identifier_c,
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
                    format:(NSString *)format args:(va_list)args {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    _LCLSystemLog_autoreleasepool_begin
     
     // create log message
-    NSString *message = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   if !__has_feature(objc_arc)
+    [message autorelease];
+#   endif
     const char *message_c = [message UTF8String];
     
     // write log message
     _LCLSystemLog_log(identifier_c, lclLevel, NO, path_c, line, function_c, message_c);
     
     // release local objects
-    [pool release];
+    _LCLSystemLog_autoreleasepool_end
 }
 
 // Writes the given log message to the system log (format and ... var args).
@@ -484,12 +516,15 @@ static void _LCLSystemLog_log(const char *identifier_c,
                      path:(const char *)path_c line:(uint32_t)line
                  function:(const char *)function_c
                    format:(NSString *)format, ... {
-    NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+    _LCLSystemLog_autoreleasepool_begin
     
     // create log message
     va_list args;
     va_start(args, format);
-    NSString *message = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
+    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   if !__has_feature(objc_arc)
+    [message autorelease];
+#   endif
     va_end(args);
     const char *message_c = [message UTF8String];
     
@@ -497,7 +532,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_log(identifier_c, lclLevel, NO, path_c, line, function_c, message_c);
     
     // release local objects
-    [pool release];
+    _LCLSystemLog_autoreleasepool_end
 }
 
 

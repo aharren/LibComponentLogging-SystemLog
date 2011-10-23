@@ -24,6 +24,19 @@
 		E02A2BB7114D5DA50089CD35 /* SystemLogTestsTemplatesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E02A2BB6114D5DA50089CD35 /* SystemLogTestsTemplatesTests.m */; };
 		E03288FE113B0682005C878D /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
 		E03288FF113B0682005C878D /* LCLSystemLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E02E6F72113B009D00735C3A /* LCLSystemLog.m */; };
+		E046413A144F6074005FFD8F /* lcl.m in Sources */ = {isa = PBXBuildFile; fileRef = E03B9CB9113B01E300628BF9 /* lcl.m */; };
+		E046413B144F6074005FFD8F /* LCLSystemLog.m in Sources */ = {isa = PBXBuildFile; fileRef = E02E6F72113B009D00735C3A /* LCLSystemLog.m */; };
+		E046413C144F6074005FFD8F /* SystemLogTestsAllocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */; };
+		E046413D144F6074005FFD8F /* ASLDataStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E005CE56113B095B00BEBEBE /* ASLDataStore.m */; };
+		E046413E144F6074005FFD8F /* SystemLogTestsLoggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E005CE5A113B0A0800BEBEBE /* SystemLogTestsLoggingTests.m */; };
+		E046413F144F6074005FFD8F /* SystemLogTestsLCLLoggingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDF6311428A4C00EB3CE2 /* SystemLogTestsLCLLoggingTests.m */; };
+		E0464140144F6074005FFD8F /* SystemLogTestsLCLLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFB7114293D400EB3CE2 /* SystemLogTestsLCLLogFormatTests.m */; };
+		E0464141144F6074005FFD8F /* SystemLogTestsLogFormatTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E07CDFCF1142965D00EB3CE2 /* SystemLogTestsLogFormatTests.m */; };
+		E0464142144F6074005FFD8F /* SystemLogTestsLoggerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E056AC8A1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m */; };
+		E0464143144F6074005FFD8F /* SystemLogTestsPerThreadConnectionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E08CF9101143BD4A00A1FDF5 /* SystemLogTestsPerThreadConnectionsTest.m */; };
+		E0464144144F6074005FFD8F /* SystemLogTestsThreadedTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E02A2B6E114D54D20089CD35 /* SystemLogTestsThreadedTests.m */; };
+		E0464145144F6074005FFD8F /* SystemLogTestsConfigurationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = E02A2B92114D5A2E0089CD35 /* SystemLogTestsConfigurationTests.m */; };
+		E0464146144F6074005FFD8F /* SystemLogTestsObjectiveCPlusPlusTests.mm in Sources */ = {isa = PBXBuildFile; fileRef = E0E1F2181286F636001D506F /* SystemLogTestsObjectiveCPlusPlusTests.mm */; };
 		E056AC8B1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E056AC8A1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m */; };
 		E056AC8C1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E056AC8A1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m */; };
 		E056AC8D1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = E056AC8A1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m */; };
@@ -71,6 +84,13 @@
 			remoteGlobalIDString = E03288FB113B0682005C878D;
 			remoteInfo = "SystemLog-Tests-MacOSX-10.6-ClangLLVM";
 		};
+		E046414F144F60D2005FFD8F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0464137144F6074005FFD8F;
+			remoteInfo = "SystemLog-Tests-MacOSX-ARC";
+		};
 		E07CE14D1142E11200EB3CE2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 29B97313FDCFA39411CA2CEA /* Project object */;
@@ -97,7 +117,7 @@
 /* Begin PBXFileReference section */
 		E005CE3D113B08CE00BEBEBE /* SystemLogTestsAllocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsAllocationTests.m; path = "SystemLog-Tests/SystemLogTestsAllocationTests.m"; sourceTree = "<group>"; };
 		E005CE55113B095B00BEBEBE /* ASLDataStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ASLDataStore.h; path = "SystemLog-Tests/ASLDataStore.h"; sourceTree = "<group>"; };
-		E005CE56113B095B00BEBEBE /* ASLDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASLDataStore.m; path = "SystemLog-Tests/ASLDataStore.m"; sourceTree = "<group>"; };
+		E005CE56113B095B00BEBEBE /* ASLDataStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = ASLDataStore.m; path = "SystemLog-Tests/ASLDataStore.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		E005CE5A113B0A0800BEBEBE /* SystemLogTestsLoggingTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLoggingTests.m; path = "SystemLog-Tests/SystemLogTestsLoggingTests.m"; sourceTree = "<group>"; };
 		E02A2B6E114D54D20089CD35 /* SystemLogTestsThreadedTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsThreadedTests.m; path = "SystemLog-Tests/SystemLogTestsThreadedTests.m"; sourceTree = "<group>"; };
 		E02A2B92114D5A2E0089CD35 /* SystemLogTestsConfigurationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsConfigurationTests.m; path = "SystemLog-Tests/SystemLogTestsConfigurationTests.m"; sourceTree = "<group>"; };
@@ -112,6 +132,7 @@
 		E03B9CB9113B01E300628BF9 /* lcl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = lcl.m; path = Core/lcl.m; sourceTree = "<group>"; };
 		E03B9CC8113B02F200628BF9 /* SystemLog-Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E03B9CD6113B035600628BF9 /* SystemLog-Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SystemLog-Tests-Info.plist"; path = "SystemLog-Tests/SystemLog-Tests-Info.plist"; sourceTree = "<group>"; };
+		E046414C144F6074005FFD8F /* SystemLog-Tests-MacOSX-ARC.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-MacOSX-ARC.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E056AC891143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemLogTestsLoggerConfiguration.h; path = "SystemLog-Tests/SystemLogTestsLoggerConfiguration.h"; sourceTree = "<group>"; };
 		E056AC8A1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLoggerConfiguration.m; path = "SystemLog-Tests/SystemLogTestsLoggerConfiguration.m"; sourceTree = "<group>"; };
 		E07CDEAB1142701300EB3CE2 /* LCLSystemLogConfig.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLogConfig.template.h; path = ../LCLSystemLogConfig.template.h; sourceTree = SOURCE_ROOT; };
@@ -147,6 +168,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E03B9CC5113B02F200628BF9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0464147144F6074005FFD8F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -190,6 +218,7 @@
 				E0DB2F5E113B079C003E06ED /* SystemLog-Tests-iPhoneOS-Device.octest */,
 				E02A2BB2114D5D0C0089CD35 /* SystemLog-Tests-Templates.octest */,
 				E095E0E71156577400C27BE8 /* SystemLog-Tests-Standalone.octest */,
+				E046414C144F6074005FFD8F /* SystemLog-Tests-MacOSX-ARC.octest */,
 			);
 			name = SystemLog;
 			sourceTree = "<group>";
@@ -293,6 +322,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				E0464150144F60D2005FFD8F /* PBXTargetDependency */,
 				E0328909113B06AC005C878D /* PBXTargetDependency */,
 				E07CE14E1142E11200EB3CE2 /* PBXTargetDependency */,
 				E0DB2F61113B07B0003E06ED /* PBXTargetDependency */,
@@ -302,6 +332,24 @@
 			name = "SystemLog-Tests";
 			productName = "SystemLog-Tests";
 			productReference = E03B9CC8113B02F200628BF9 /* SystemLog-Tests.octest */;
+			productType = "com.apple.product-type.bundle";
+		};
+		E0464137144F6074005FFD8F /* SystemLog-Tests-MacOSX-ARC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0464149144F6074005FFD8F /* Build configuration list for PBXNativeTarget "SystemLog-Tests-MacOSX-ARC" */;
+			buildPhases = (
+				E0464138144F6074005FFD8F /* Resources */,
+				E0464139144F6074005FFD8F /* Sources */,
+				E0464147144F6074005FFD8F /* Frameworks */,
+				E0464148144F6074005FFD8F /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SystemLog-Tests-MacOSX-ARC";
+			productName = "SystemLog-Tests";
+			productReference = E046414C144F6074005FFD8F /* SystemLog-Tests-MacOSX-ARC.octest */;
 			productType = "com.apple.product-type.bundle";
 		};
 		E07CE13A1142E0DD00EB3CE2 /* SystemLog-Tests-MacOSX-StaticAnalyzer */ = {
@@ -379,6 +427,7 @@
 			projectRoot = "";
 			targets = (
 				E03B9CC7113B02F200628BF9 /* SystemLog-Tests */,
+				E0464137144F6074005FFD8F /* SystemLog-Tests-MacOSX-ARC */,
 				E03288FB113B0682005C878D /* SystemLog-Tests-MacOSX-ClangLLVM */,
 				E07CE13A1142E0DD00EB3CE2 /* SystemLog-Tests-MacOSX-StaticAnalyzer */,
 				E0DB2F54113B079C003E06ED /* SystemLog-Tests-iPhoneOS-Device */,
@@ -404,6 +453,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E03B9CC3113B02F200628BF9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0464138144F6074005FFD8F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -461,6 +517,19 @@
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
 		E03B9CC6113B02F200628BF9 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
+		};
+		E0464148144F6074005FFD8F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -555,6 +624,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E0464139144F6074005FFD8F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E046413A144F6074005FFD8F /* lcl.m in Sources */,
+				E046413B144F6074005FFD8F /* LCLSystemLog.m in Sources */,
+				E046413C144F6074005FFD8F /* SystemLogTestsAllocationTests.m in Sources */,
+				E046413D144F6074005FFD8F /* ASLDataStore.m in Sources */,
+				E046413E144F6074005FFD8F /* SystemLogTestsLoggingTests.m in Sources */,
+				E046413F144F6074005FFD8F /* SystemLogTestsLCLLoggingTests.m in Sources */,
+				E0464140144F6074005FFD8F /* SystemLogTestsLCLLogFormatTests.m in Sources */,
+				E0464141144F6074005FFD8F /* SystemLogTestsLogFormatTests.m in Sources */,
+				E0464142144F6074005FFD8F /* SystemLogTestsLoggerConfiguration.m in Sources */,
+				E0464143144F6074005FFD8F /* SystemLogTestsPerThreadConnectionsTest.m in Sources */,
+				E0464144144F6074005FFD8F /* SystemLogTestsThreadedTests.m in Sources */,
+				E0464145144F6074005FFD8F /* SystemLogTestsConfigurationTests.m in Sources */,
+				E0464146144F6074005FFD8F /* SystemLogTestsObjectiveCPlusPlusTests.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E07CE13C1142E0DD00EB3CE2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -616,6 +705,11 @@
 			isa = PBXTargetDependency;
 			target = E03288FB113B0682005C878D /* SystemLog-Tests-MacOSX-ClangLLVM */;
 			targetProxy = E0328908113B06AC005C878D /* PBXContainerItemProxy */;
+		};
+		E0464150144F60D2005FFD8F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0464137144F6074005FFD8F /* SystemLog-Tests-MacOSX-ARC */;
+			targetProxy = E046414F144F60D2005FFD8F /* PBXContainerItemProxy */;
 		};
 		E07CE14E1142E11200EB3CE2 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -809,6 +903,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "SystemLog-Tests-MacOSX-ClangLLVM";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
@@ -858,6 +953,7 @@
 					SenTestingKit,
 				);
 				PRODUCT_NAME = "SystemLog-Tests-MacOSX-ClangLLVM";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				TEST_AFTER_BUILD = YES;
 				WRAPPER_EXTENSION = octest;
@@ -958,6 +1054,106 @@
 				);
 				PRODUCT_NAME = "SystemLog-Tests";
 				TEST_AFTER_BUILD = YES;
+				WRAPPER_EXTENSION = octest;
+				ZERO_LINK = NO;
+			};
+			name = Release;
+		};
+		E046414A144F6074005FFD8F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SystemLog-Tests/SystemLogTests.pch";
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_PROTOTYPE_CONVERSION = NO;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				INFOPLIST_FILE = "SystemLog-Tests/SystemLog-Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "SystemLog-Tests-MacOSX-ARC";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx;
+				TEST_AFTER_BUILD = YES;
+				VALID_ARCHS = x86_64;
+				WRAPPER_EXTENSION = octest;
+			};
+			name = Debug;
+		};
+		E046414B144F6074005FFD8F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_OBJCPP_ARC_ABI = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = "$(DEVELOPER_LIBRARY_DIR)/Frameworks";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SystemLog-Tests/SystemLogTests.pch";
+				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
+				GCC_TREAT_NONCONFORMANT_CODE_ERRORS_AS_WARNINGS = YES;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
+				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
+				GCC_WARN_CHECK_SWITCH_STATEMENTS = YES;
+				GCC_WARN_INITIALIZER_NOT_FULLY_BRACKETED = YES;
+				GCC_WARN_MISSING_PARENTHESES = YES;
+				GCC_WARN_PROTOTYPE_CONVERSION = NO;
+				GCC_WARN_SHADOW = YES;
+				GCC_WARN_SIGN_COMPARE = YES;
+				GCC_WARN_UNKNOWN_PRAGMAS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_LABEL = YES;
+				GCC_WARN_UNUSED_PARAMETER = YES;
+				INFOPLIST_FILE = "SystemLog-Tests/SystemLog-Tests-Info.plist";
+				INSTALL_PATH = "$(USER_LIBRARY_DIR)/Bundles";
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = (
+					"-framework",
+					Foundation,
+					"-framework",
+					SenTestingKit,
+				);
+				PRODUCT_NAME = "SystemLog-Tests-MacOSX-ARC";
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = macosx;
+				TEST_AFTER_BUILD = YES;
+				VALID_ARCHS = x86_64;
 				WRAPPER_EXTENSION = octest;
 				ZERO_LINK = NO;
 			};
@@ -1298,6 +1494,15 @@
 			buildConfigurations = (
 				E03B9CCA113B02F300628BF9 /* Debug */,
 				E03B9CCB113B02F300628BF9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0464149144F6074005FFD8F /* Build configuration list for PBXNativeTarget "SystemLog-Tests-MacOSX-ARC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E046414A144F6074005FFD8F /* Debug */,
+				E046414B144F6074005FFD8F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -56,7 +56,10 @@
 - (void)testLoggingWithVarArgsLogMethod {
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMain] lclLevel:lcl_vInfo path:"path/file1a" line:101 function:"f1" format:@"format %d %@", 1, @"message"];
     [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMain] lclLevel:lcl_vError path:"path/file1b" line:102 function:"f2" format:@"format %d %@", 2, @"message"];
@@ -95,7 +98,10 @@
 - (void)testLoggingWithVaListVarArgsLogMethod {
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [self loggingWithVaListVarArgsLogMethodHelper:@"message %d %@ %d", 2, @"abc", 3];
     
@@ -116,7 +122,10 @@
 - (void)testLoggingWithMessage {
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:_lcl_component_header[lcl_cMainComponent2] lclLevel:lcl_vError path:"file3" line:300 function:"function" message:@"message %d %@"];
     
@@ -137,7 +146,10 @@
 - (void)testLoggingWithLogMacro {
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     lcl_log(lcl_cMainComponent1, lcl_vInfo, @"message with macro, %d", 1);
     
@@ -150,7 +162,7 @@
     STAssertEqualObjects([message1 valueForKey:@"Level"], @"5", nil);
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"SystemLogTestsLCLLoggingTests.m", nil);
-    STAssertEqualObjects([message1 valueForKey:@"Line"], @"142", nil);
+    STAssertEqualObjects([message1 valueForKey:@"Line"], @"154", nil);
     STAssertEqualObjects([message1 valueForKey:@"Function"], @"-[SystemLogTestsLCLLoggingTests testLoggingWithLogMacro]", nil);
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"message with macro, 1", nil);
 }

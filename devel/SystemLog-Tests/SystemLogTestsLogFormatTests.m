@@ -50,7 +50,10 @@
     [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"i1" level:3 path:NULL line:0 function:"f1" format:@"message NULL"];
     [LCLSystemLog logWithIdentifier:"i1" level:3 path:"file" line:1 function:"f1" format:@"message file"];
@@ -85,7 +88,10 @@
     [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"i1" level:0 path:"path/file" line:0 function:"f" format:@"message"];
     [LCLSystemLog logWithIdentifier:"i2" level:1 path:"path/file" line:0 function:"f" format:@"message"];
@@ -143,7 +149,10 @@
     [SystemLogTestsLoggerConfiguration setLastASLLogLevelToUse:(uint32_t)ASL_LEVEL_NOTICE];
     [LCLSystemLog initialize];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"i1" level:0 path:"path/file" line:0 function:"f" format:@"message"];
     [LCLSystemLog logWithIdentifier:"i2" level:1 path:"path/file" line:0 function:"f" format:@"message"];
@@ -230,7 +239,10 @@
     [SystemLogTestsLoggerConfiguration setShowFunctionNames:NO];
     [LCLSystemLog initialize];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"i1" level:0 path:"path" line:0 function:"func" format:@"message 1"];
     [LCLSystemLog logWithIdentifier:"i2" level:0 path:"path" line:10 function:"func" format:@"message 10"];

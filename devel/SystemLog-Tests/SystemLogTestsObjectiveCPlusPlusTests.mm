@@ -67,7 +67,10 @@ void SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(int i, NSString 
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(123, @"NSString *");
     
@@ -81,7 +84,11 @@ void SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(int i, NSString 
     STAssertEqualObjects([message1 valueForKey:@"Level0"], @"I", nil);
     STAssertEqualObjects([message1 valueForKey:@"File"], @"SystemLogTestsObjectiveCPlusPlusTests.mm", nil);
     STAssertEqualObjects([message1 valueForKey:@"Line"], @"41", nil);
+#   if !__has_feature(objc_arc)
     STAssertEqualObjects([message1 valueForKey:@"Function"], @"static void SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(int, NSString *)", nil);
+#   else
+    STAssertEqualObjects([message1 valueForKey:@"Function"], @"static void SystemLogTestsObjectiveCPlusPlusTestsClass::logAtLevelInfo(int, NSString *__strong)", nil);
+#   endif
     STAssertEqualObjects([message1 valueForKey:@"Message"], @"message cstring 123 NSString *", nil);
 }
 

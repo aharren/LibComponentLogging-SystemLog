@@ -28,6 +28,14 @@
 #import <unistd.h>
 
 
+// ARC defines for non-ARC builds
+#if !__has_feature(objc_arc)
+#ifndef __bridge
+#define __bridge
+#endif
+#endif
+
+
 // A message in the ASL data store.
 @implementation ASLMessage
 
@@ -51,8 +59,10 @@
 }
 
 - (void)dealloc {
+#   if !__has_feature(objc_arc)
     [valuesByKey release];
     [super dealloc];
+#   endif
 }
 
 - (NSString *)valueForKey:(NSString *)key {
@@ -73,7 +83,10 @@
         
         aslmsg aslMessage = NULL;
         while ((aslMessage = aslresponse_next(aslResponse))) {
-            ASLMessage *message = [[[ASLMessage alloc] initWithMessage:aslMessage] autorelease];
+            ASLMessage *message = [[ASLMessage alloc] initWithMessage:aslMessage];
+#           if !__has_feature(objc_arc)
+            [message autorelease];
+#           endif
             if ([[message valueForKey:@"Message"] isEqualToString:lastMessage]) {
                 *found = YES;
                 break;
@@ -88,8 +101,10 @@
 }
 
 - (void)dealloc {
+#   if !__has_feature(objc_arc)
     [messages release];
     [super dealloc];
+#   endif
 }
 
 - (NSUInteger)count {
@@ -110,7 +125,7 @@
     if ((self = [super init])) {
         // get a uuid
         CFUUIDRef cfuuid = CFUUIDCreate(nil);
-        uuid = (NSString *)CFUUIDCreateString(nil, cfuuid);
+        uuid = (__bridge NSString *)CFUUIDCreateString(nil, cfuuid);
         CFRelease(cfuuid);
         
         // create a tag with the uuid and the pid
@@ -156,9 +171,11 @@
 }
 
 - (void)dealloc {
+#   if !__has_feature(objc_arc)
     [uuid release];
     [identifier release];
     [super dealloc];
+#   endif
 }
 
 - (NSString *)uuid {
@@ -195,7 +212,10 @@
     do {
         aslresponse response = asl_search(NULL, query);
         BOOL tagFound = NO;
-        messages = [[[ASLMessageArray alloc] initWithResponse:response upToMessage:tag found:&tagFound] autorelease];
+        messages = [[ASLMessageArray alloc] initWithResponse:response upToMessage:tag found:&tagFound];
+#       if !__has_feature(objc_arc)
+        [messages autorelease];
+#       endif
         aslresponse_free(response);
         
         if (tagFound) {

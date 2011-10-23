@@ -50,7 +50,10 @@
     [SystemLogTestsLoggerConfiguration setShowFunctionNames:YES];
     [LCLSystemLog initialize];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"i1" lclLevel:0 path:"path/file" line:0 function:"f" format:@"message"];
     [LCLSystemLog logWithIdentifier:"i2" lclLevel:1 path:"path/file" line:0 function:"f" format:@"message"];
@@ -98,7 +101,10 @@
     [SystemLogTestsLoggerConfiguration setLastASLLogLevelToUse:(uint32_t)ASL_LEVEL_NOTICE];
     [LCLSystemLog initialize];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"i1" lclLevel:0 path:"path/file" line:0 function:"f" format:@"message"];
     [LCLSystemLog logWithIdentifier:"i2" lclLevel:1 path:"path/file" line:0 function:"f" format:@"message"];
@@ -194,7 +200,10 @@
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [self loggingWithVaListVarArgsLogMethodHelper:@"message %d %@ %d", 2, @"abc", 3];
     
@@ -222,7 +231,10 @@
     
     NSString *thread = [NSString stringWithFormat:@"%x", mach_thread_self()];
     
-    ASLReferenceMark *mark = [[[ASLReferenceMark alloc] init] autorelease];
+    ASLReferenceMark *mark = [[ASLReferenceMark alloc] init];
+#   if !__has_feature(objc_arc)
+    [mark autorelease];
+#   endif
     
     [LCLSystemLog logWithIdentifier:"ident" level:1 path:"file3" line:300 function:"function" message:@"message %d %@"];
     
