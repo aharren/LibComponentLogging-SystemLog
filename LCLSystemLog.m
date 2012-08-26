@@ -436,7 +436,18 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_autoreleasepool_begin
     
     // create log message
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Wformat-nonliteral"
+#       endif
+#   endif
     NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic pop
+#       endif
+#   endif
 #   if !__has_feature(objc_arc)
     [message autorelease];
 #   endif
@@ -504,7 +515,18 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_autoreleasepool_begin
     
     // create log message
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Wformat-nonliteral"
+#       endif
+#   endif
     NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic pop
+#       endif
+#   endif
 #   if !__has_feature(objc_arc)
     [message autorelease];
 #   endif
