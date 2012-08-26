@@ -3,7 +3,7 @@
 // LCLSystemLog.m
 //
 //
-// Copyright (c) 2008-2011 Arne Harren <ah@0xc0.de>
+// Copyright (c) 2008-2012 Arne Harren <ah@0xc0.de>
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -436,7 +436,18 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_autoreleasepool_begin
     
     // create log message
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Wformat-nonliteral"
+#       endif
+#   endif
     NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic pop
+#       endif
+#   endif
 #   if !__has_feature(objc_arc)
     [message autorelease];
 #   endif
@@ -504,7 +515,18 @@ static void _LCLSystemLog_log(const char *identifier_c,
     _LCLSystemLog_autoreleasepool_begin
     
     // create log message
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Wformat-nonliteral"
+#       endif
+#   endif
     NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
+#   ifndef _LCL_NO_IGNORE_WARNINGS
+#       ifdef __clang__
+#       pragma clang diagnostic pop
+#       endif
+#   endif
 #   if !__has_feature(objc_arc)
     [message autorelease];
 #   endif
