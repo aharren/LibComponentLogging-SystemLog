@@ -117,7 +117,7 @@
 		E02A2B9D114D5CBC0089CD35 /* SystemLogTestsSystemLogConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemLogTestsSystemLogConfig.h; path = "SystemLog-Tests/SystemLogTestsSystemLogConfig.h"; sourceTree = "<group>"; };
 		E02A2BB2114D5D0C0089CD35 /* SystemLog-Tests-Templates.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-Templates.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E02A2BB6114D5DA50089CD35 /* SystemLogTestsTemplatesTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsTemplatesTests.m; path = "SystemLog-Tests/SystemLogTestsTemplatesTests.m"; sourceTree = "<group>"; };
-		E02E6F70113B009D00735C3A /* lcl_config_logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_logger.h; path = ../lcl_config_logger.h; sourceTree = SOURCE_ROOT; };
+		E02E6F70113B009D00735C3A /* lcl_config_logger.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_logger.template.h; path = ../lcl_config_logger.template.h; sourceTree = SOURCE_ROOT; };
 		E02E6F71113B009D00735C3A /* LCLSystemLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLog.h; path = ../LCLSystemLog.h; sourceTree = SOURCE_ROOT; };
 		E02E6F72113B009D00735C3A /* LCLSystemLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LCLSystemLog.m; path = ../LCLSystemLog.m; sourceTree = SOURCE_ROOT; };
 		E0328905113B0682005C878D /* SystemLog-Tests-MacOSX-ClangLLVM.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-MacOSX-ClangLLVM.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +126,7 @@
 		E03B9CC8113B02F200628BF9 /* SystemLog-Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E03B9CD6113B035600628BF9 /* SystemLog-Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "SystemLog-Tests-Info.plist"; path = "SystemLog-Tests/SystemLog-Tests-Info.plist"; sourceTree = "<group>"; };
 		E046414C144F6074005FFD8F /* SystemLog-Tests-MacOSX-ARC.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SystemLog-Tests-MacOSX-ARC.octest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E054F7AB15EA90E30027406B /* lcl_config_logger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = lcl_config_logger.h; path = "SystemLog-Tests/lcl_config_logger.h"; sourceTree = "<group>"; };
 		E056AC891143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SystemLogTestsLoggerConfiguration.h; path = "SystemLog-Tests/SystemLogTestsLoggerConfiguration.h"; sourceTree = "<group>"; };
 		E056AC8A1143B74C00F48AE0 /* SystemLogTestsLoggerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SystemLogTestsLoggerConfiguration.m; path = "SystemLog-Tests/SystemLogTestsLoggerConfiguration.m"; sourceTree = "<group>"; };
 		E07CDEAB1142701300EB3CE2 /* LCLSystemLogConfig.template.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LCLSystemLogConfig.template.h; path = ../LCLSystemLogConfig.template.h; sourceTree = SOURCE_ROOT; };
@@ -222,7 +223,7 @@
 				E02E6F71113B009D00735C3A /* LCLSystemLog.h */,
 				E02E6F72113B009D00735C3A /* LCLSystemLog.m */,
 				E07CDEAB1142701300EB3CE2 /* LCLSystemLogConfig.template.h */,
-				E02E6F70113B009D00735C3A /* lcl_config_logger.h */,
+				E02E6F70113B009D00735C3A /* lcl_config_logger.template.h */,
 			);
 			name = SystemLog;
 			sourceTree = "<group>";
@@ -241,6 +242,7 @@
 			children = (
 				E0E6ACFA113B04D200DD0374 /* lcl_config_components.h */,
 				E0E6ACFB113B04D200DD0374 /* lcl_config_extensions.h */,
+				E054F7AB15EA90E30027406B /* lcl_config_logger.h */,
 				E07CDEBC1142732500EB3CE2 /* LCLSystemLogConfig.h */,
 				E02A2B9D114D5CBC0089CD35 /* SystemLogTestsSystemLogConfig.h */,
 				E0E6ACE9113B049900DD0374 /* SystemLogTests.pch */,
