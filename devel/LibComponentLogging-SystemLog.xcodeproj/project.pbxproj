@@ -761,8 +761,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SystemLog-Tests/SystemLogTests.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"LCLSystemLogConnection=LCLSystemLogConnection",
-					"LCLSystemLog=LCLSystemLog",
+					"LCLSystemLogConnection=TestLCLSystemLogConnection",
+					"LCLSystemLog=TestLCLSystemLog",
 					SYSTEMLOG_TESTS_TEMPLATES_BUILD,
 				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -820,8 +820,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SystemLog-Tests/SystemLogTests.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"LCLSystemLogConnection=LCLSystemLogConnection",
-					"LCLSystemLog=LCLSystemLog",
+					"LCLSystemLogConnection=TestLCLSystemLogConnection",
+					"LCLSystemLog=TestLCLSystemLog",
 					SYSTEMLOG_TESTS_TEMPLATES_BUILD,
 				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -1333,8 +1333,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SystemLog-Tests/SystemLogTests.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"LCLSystemLogConnection=LCLSystemLogConnection",
-					"LCLSystemLog=LCLSystemLog",
+					"LCLSystemLogConnection=TestLCLSystemLogConnection",
+					"LCLSystemLog=TestLCLSystemLog",
 					SYSTEMLOG_TESTS_TEMPLATES_BUILD,
 				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
@@ -1392,8 +1392,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SystemLog-Tests/SystemLogTests.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
-					"LCLSystemLogConnection=LCLSystemLogConnection",
-					"LCLSystemLog=LCLSystemLog",
+					"LCLSystemLogConnection=TestLCLSystemLogConnection",
+					"LCLSystemLog=TestLCLSystemLog",
 					SYSTEMLOG_TESTS_TEMPLATES_BUILD,
 				);
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;

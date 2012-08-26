@@ -44,8 +44,8 @@
 }
 
 - (void)testClassNames {
-    STAssertEqualObjects(as_NSString(LCLSystemLog), @"LCLSystemLog", nil);
-    STAssertEqualObjects(as_NSString(LCLSystemLogConnection), @"LCLSystemLogConnection", nil);
+    STAssertEqualObjects(as_NSString(LCLSystemLog), @"TestLCLSystemLog", nil);
+    STAssertEqualObjects(as_NSString(LCLSystemLogConnection), @"TestLCLSystemLogConnection", nil);
 }
 
 - (void)testConfigurationMirrorsToStdErr {
