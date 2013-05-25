@@ -26,6 +26,14 @@
 #import <Foundation/Foundation.h>
 
 
+#ifndef _LCL_NO_IGNORE_WARNINGS
+#   ifdef __clang__
+    // Ignore some warnings about deprecated ivar declaration when using '-Weverything'.
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wobjc-interface-ivars"
+#   endif
+#endif
+
 // A message in the ASL data store.
 @interface ASLMessage : NSObject {
     
@@ -76,4 +84,10 @@
 + (ASLMessageArray *)messagesSinceReferenceMark:(ASLReferenceMark *)mark;
 
 @end
+
+#ifndef _LCL_NO_IGNORE_WARNINGS
+#   ifdef __clang__
+#   pragma clang diagnostic pop
+#   endif
+#endif
 

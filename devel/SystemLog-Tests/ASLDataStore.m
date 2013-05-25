@@ -35,6 +35,13 @@
 #endif
 #endif
 
+#ifndef _LCL_NO_IGNORE_WARNINGS
+#   ifdef __clang__
+    // Ignore some warnings about deprecated ivar access when using '-Weverything'.
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#   endif
+#endif
 
 // A message in the ASL data store.
 @implementation ASLMessage
@@ -235,4 +242,10 @@
 }
 
 @end
+
+#ifndef _LCL_NO_IGNORE_WARNINGS
+#   ifdef __clang__
+#   pragma clang diagnostic pop
+#   endif
+#endif
 

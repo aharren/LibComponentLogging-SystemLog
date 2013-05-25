@@ -168,6 +168,15 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 //
 
 
+#ifndef _LCL_NO_IGNORE_WARNINGS
+#   ifdef __clang__
+    // Ignore some warnings about deprecated ivar declaration/access when using '-Weverything'.
+#   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wobjc-interface-ivars"
+#   pragma clang diagnostic ignored "-Wdirect-ivar-access"
+#   endif
+#endif
+
 @interface LCLSystemLogConnection : NSObject {
     
 @private
@@ -211,6 +220,12 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 }
 
 @end
+
+#ifndef _LCL_NO_IGNORE_WARNINGS
+#   ifdef __clang__
+#   pragma clang diagnostic pop
+#   endif
+#endif
 
 
 @implementation LCLSystemLog
