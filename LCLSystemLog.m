@@ -172,6 +172,7 @@ static const char * const _LCLSystemLog_level0LCL[] = {
 #   ifdef __clang__
     // Ignore some warnings about deprecated ivar declaration/access when using '-Weverything'.
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-pragmas"
 #   pragma clang diagnostic ignored "-Wobjc-interface-ivars"
 #   pragma clang diagnostic ignored "-Wdirect-ivar-access"
 #   endif
@@ -454,6 +455,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
 #   ifndef _LCL_NO_IGNORE_WARNINGS
 #       ifdef __clang__
 #       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Wunknown-pragmas"
 #       pragma clang diagnostic ignored "-Wformat-nonliteral"
 #       endif
 #   endif
@@ -533,6 +535,7 @@ static void _LCLSystemLog_log(const char *identifier_c,
 #   ifndef _LCL_NO_IGNORE_WARNINGS
 #       ifdef __clang__
 #       pragma clang diagnostic push
+#       pragma clang diagnostic ignored "-Wunknown-pragmas"
 #       pragma clang diagnostic ignored "-Wformat-nonliteral"
 #       endif
 #   endif

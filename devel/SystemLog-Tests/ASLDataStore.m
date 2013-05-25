@@ -39,6 +39,7 @@
 #   ifdef __clang__
     // Ignore some warnings about deprecated ivar access when using '-Weverything'.
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-pragmas"
 #   pragma clang diagnostic ignored "-Wdirect-ivar-access"
 #   endif
 #endif

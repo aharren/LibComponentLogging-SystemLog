@@ -30,6 +30,7 @@
 #   ifdef __clang__
     // Ignore some warnings about deprecated ivar declaration when using '-Weverything'.
 #   pragma clang diagnostic push
+#   pragma clang diagnostic ignored "-Wunknown-pragmas"
 #   pragma clang diagnostic ignored "-Wobjc-interface-ivars"
 #   endif
 #endif
