@@ -305,7 +305,6 @@
 				E02A2B9F114D5D0C0089CD35 /* Resources */,
 				E02A2BA0114D5D0C0089CD35 /* Sources */,
 				E02A2BAD114D5D0C0089CD35 /* Frameworks */,
-				E02A2BAE114D5D0C0089CD35 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -323,7 +322,6 @@
 				E03288FC113B0682005C878D /* Resources */,
 				E03288FD113B0682005C878D /* Sources */,
 				E0328900113B0682005C878D /* Frameworks */,
-				E0328901113B0682005C878D /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -341,7 +339,6 @@
 				E03B9CC3113B02F200628BF9 /* Resources */,
 				E03B9CC4113B02F200628BF9 /* Sources */,
 				E03B9CC5113B02F200628BF9 /* Frameworks */,
-				E03B9CC6113B02F200628BF9 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -365,7 +362,6 @@
 				E0464138144F6074005FFD8F /* Resources */,
 				E0464139144F6074005FFD8F /* Sources */,
 				E0464147144F6074005FFD8F /* Frameworks */,
-				E0464148144F6074005FFD8F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -383,7 +379,6 @@
 				E07CE13B1142E0DD00EB3CE2 /* Resources */,
 				E07CE13C1142E0DD00EB3CE2 /* Sources */,
 				E07CE1451142E0DD00EB3CE2 /* Frameworks */,
-				E07CE1461142E0DD00EB3CE2 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -401,7 +396,6 @@
 				E095E0DD1156577400C27BE8 /* Resources */,
 				E095E0DE1156577400C27BE8 /* Sources */,
 				E095E0E21156577400C27BE8 /* Frameworks */,
-				E095E0E31156577400C27BE8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -419,7 +413,6 @@
 				E0C75C6D15EA95ED00F3422C /* Resources */,
 				E0C75C6E15EA95ED00F3422C /* Sources */,
 				E0C75C7C15EA95ED00F3422C /* Frameworks */,
-				E0C75C7D15EA95ED00F3422C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -437,7 +430,6 @@
 				E0DB2F55113B079C003E06ED /* Resources */,
 				E0DB2F56113B079C003E06ED /* Sources */,
 				E0DB2F59113B079C003E06ED /* Frameworks */,
-				E0DB2F5A113B079C003E06ED /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -538,113 +530,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		E02A2BAE114D5D0C0089CD35 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E0328901113B0682005C878D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E03B9CC6113B02F200628BF9 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E0464148144F6074005FFD8F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E07CE1461142E0DD00EB3CE2 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E095E0E31156577400C27BE8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E0C75C7D15EA95ED00F3422C /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		E0DB2F5A113B079C003E06ED /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E02A2BA0114D5D0C0089CD35 /* Sources */ = {
